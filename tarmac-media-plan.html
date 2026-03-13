@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarmac – Media Plan</title>
+  <style>
+    :root {
+      --bg-subtle: #f5f5f6;
+      --header-bg: #21014d;
+      --header-text: #fefefe;
+      --text-primary: #343435;
+      --text-body: #343433;
+      --text-secondary: #665d71;
+      --link-blue: #0b61a0;
+      --tag-info-bg: #0d7aca;
+      --tag-info-text: #ffffff;
+      --tag-success-bg: #18694c;
+      --border-subtle: #eeefeb;
+      --border-input: #c7c4cb;
+      --card-bg: #ffffff;
+      --status-error: #d53e5a;
+      --purple-primary: #5407aa;
+      --purple-accordion: #5407aa;
+      --avatar-bg: #bdbdbd;
+      --grey-500: #9b9c99;
+      --shadow-header: 0 0 1px rgba(11, 0, 27, 0.15), 0 2px 4px rgba(78, 69, 92, 0.08);
+      --shadow-card: 0 0.5px 2.5px 0.5px rgba(11, 0, 27, 0.15);
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    a { color: var(--link-blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== LAYOUT ===== */
+    .page { min-height: 100vh; padding-top: 60px; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--header-bg);
+      box-shadow: var(--shadow-header);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo { height: 20px; }
+    .logo img { height: 100%; width: auto; }
+
+    .product-name {
+      color: var(--header-text);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 28px;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--avatar-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .avatar svg { width: 20px; height: 20px; color: #fff; }
+
+    /* ===== LOCAL HEADER ===== */
+    .local-header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 0 24px 12px;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .tab {
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 20px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .tab--active {
+      font-weight: 500;
+      border-bottom-color: var(--purple-primary);
+    }
+
+    .tab:hover:not(.tab--active) { background: var(--bg-subtle); }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      line-height: 20px;
+      padding-top: 12px;
+    }
+
+    .breadcrumbs a { color: var(--link-blue); }
+    .breadcrumbs-sep { color: #0b001b; }
+    .breadcrumbs-current { color: var(--text-secondary); }
+
+    /* ===== MAIN CONTENT ===== */
+    .main {
+      max-width: 1447px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ===== PAGE TITLE ===== */
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-title {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      background: var(--tag-info-bg);
+      color: var(--tag-info-text);
+    }
+
+    .tag--success {
+      background: var(--tag-success-bg);
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      padding: 20px 24px;
+    }
+
+    /* Card Header Row */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-title-block { max-width: 628px; }
+
+    .field-label {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--text-body);
+      margin-bottom: 4px;
+    }
+
+    .field-value-lg {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 24px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .edit-icon {
+      color: var(--link-blue);
+      cursor: pointer;
+      display: inline-flex;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 20px;
+      cursor: pointer;
+      border: 1px solid var(--purple-primary);
+      background: transparent;
+      color: var(--purple-primary);
+      white-space: nowrap;
+    }
+
+    .btn:hover { background: rgba(84, 7, 170, 0.04); }
+
+    .btn--primary {
+      background: var(--purple-primary);
+      color: #fff;
+    }
+
+    .btn--primary:hover { background: #4a0699; }
+
+    .btn--large {
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+
+    /* Status Row */
+    .status-row {
+      margin-bottom: 8px;
+    }
+
+    .field-value-status {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    /* Info Row */
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .info-label {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--text-body);
+      min-width: 100px;
+    }
+
+    .info-value {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    .info-value--link { color: var(--link-blue); }
+
+    /* Meta Grid */
+    .meta-grid {
+      display: flex;
+      gap: 0;
+      margin-bottom: 16px;
+    }
+
+    .meta-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 349px;
+    }
+
+    .meta-column-header {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    .meta-field {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .meta-label {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--text-body);
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .meta-value {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    .meta-value--link { color: var(--link-blue); }
+    .meta-value--error { color: var(--status-error); }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 16px 0;
+    }
+
+    /* Actions Section */
+    .actions-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .actions-left {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .actions-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .actions-center {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 0;
+    }
+
+    .actions-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-end;
+    }
+
+    .overlap-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .overlap-label {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .overlap-timestamp {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    /* ===== ACCORDION ===== */
+    .accordion {
+      background: var(--purple-accordion);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+    }
+
+    .accordion svg { width: 24px; height: 24px; }
+
+    /* ===== FLIGHTS SECTION ===== */
+    .flights-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-sm);
+      padding: 24px 20px 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .flights-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+
+    .flights-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 8px;
+    }
+
+    .toolbar-left {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .toolbar-right {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Search Input */
+    .search-field {
+      position: relative;
+      flex: 1;
+      min-width: 360px;
+    }
+
+    .search-field input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: 1px solid var(--border-input);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .search-field input::placeholder { color: var(--grey-500); }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-500);
+      display: flex;
+    }
+
+    .search-icon svg { width: 20px; height: 20px; }
+
+    /* Icon Button */
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--purple-primary);
+      border-radius: var(--radius-md);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .icon-btn svg { width: 16px; height: 16px; color: var(--purple-primary); }
+
+    /* Select Field */
+    .select-field {
+      position: relative;
+      min-width: 120px;
+    }
+
+    .select-label {
+      position: absolute;
+      top: -6px;
+      left: 12px;
+      font-size: 11px;
+      line-height: 12px;
+      background: #fff;
+      padding: 0 4px;
+      color: var(--text-primary);
+    }
+
+    .select-field select {
+      width: 100%;
+      padding: 12px 48px 12px 12px;
+      border: 1px solid var(--border-input);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      line-height: 20px;
+      appearance: none;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .select-icons {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .select-icons svg { width: 16px; height: 16px; color: var(--grey-500); }
+
+    /* ===== TABLE ===== */
+    .table-wrapper {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    thead { background: var(--bg-subtle); }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    th {
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    th:first-child, td:first-child { width: 36px; }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    .cell-link { color: var(--link-blue); }
+
+    .cell-id {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+
+    .copy-btn:hover { opacity: 1; }
+    .copy-btn svg { width: 14px; height: 14px; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffe69c;
+    }
+
+    .chip-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--status-error);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .status-badge--active {
+      background: #e6f4ea;
+      color: #1e8e3e;
+      border: 1px solid #c7e8cf;
+    }
+
+    .status-badge--archived {
+      background: #f5f5f6;
+      color: #665d71;
+      border: 1px solid #ddd;
+    }
+
+    .text-right { text-align: right; }
+
+    /* ===== TOAST NOTIFICATION ===== */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #e6f4ea;
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1e4620;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 300;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .toast.visible {
+      display: flex;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    }
+
+    .toast.hiding {
+      animation: slideOut 0.3s ease-in forwards;
+    }
+
+    .toast-icon {
+      width: 20px;
+      height: 20px;
+      background: #1e8e3e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .toast-icon svg {
+      width: 12px;
+      height: 12px;
+      color: #fff;
+    }
+
+    .toast-message {
+      flex: 1;
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: #1e4620;
+      opacity: 0.6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toast-close:hover {
+      opacity: 1;
+    }
+
+    .toast-close svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ===== MODAL OVERLAY ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.visible {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 6px 30px 5px rgba(0, 0, 0, 0.12),
+                  0 16px 24px 2px rgba(0, 0, 0, 0.14),
+                  0 8px 10px -5px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      overflow: hidden;
+    }
+
+    .modal-title {
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: rgba(11, 0, 27, 0.87);
+    }
+
+    .modal-content {
+      padding: 0 24px 20px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #101523;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      padding: 8px;
+    }
+
+    .modal-btn {
+      padding: 8px 22px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0.46px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .modal-btn--cancel {
+      background: transparent;
+      border: 1px solid var(--purple-primary);
+      color: var(--purple-primary);
+    }
+
+    .modal-btn--cancel:hover {
+      background: rgba(84, 7, 170, 0.04);
+    }
+
+    .modal-btn--confirm {
+      background: var(--purple-primary);
+      color: #fff;
+    }
+
+    .modal-btn--confirm:hover {
+      background: #4a0699;
+    }
+
+    /* ===== SELECTION BAR ===== */
+    .selection-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+    }
+
+    .selection-bar.visible {
+      display: flex;
+    }
+
+    .selection-bar-left {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--text-primary);
+    }
+
+    .selection-bar-right {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .selection-bar .btn {
+      padding: 6px 16px;
+    }
+
+    /* Checkbox styling for selected rows */
+    tbody tr.selected {
+      background: rgba(84, 7, 170, 0.04);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1200px) {
+      .card-header,
+      .info-row,
+      .meta-grid,
+      .actions-section,
+      .flights-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .meta-column { width: 100%; }
+      .toolbar-left { width: 100%; }
+      .toolbar-right { width: 100%; justify-content: flex-start; }
+      .search-field { min-width: 100%; }
+      .actions-right { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <img src="./logo.png" alt="Roku" />
+        </div>
+        <span class="product-name">Tarmac</span>
+      </div>
+      <div class="avatar">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <circle cx="10" cy="7" r="4"/>
+          <path d="M3 18c0-4 3.5-7 7-7s7 3 7 7"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- Local Header -->
+    <div class="local-header">
+      <div class="tabs">
+        <button class="tab tab--active">Client Service</button>
+        <button class="tab">Ad Operations</button>
+      </div>
+      <nav class="breadcrumbs">
+        <a href="#">Home</a>
+        <span class="breadcrumbs-sep">/</span>
+        <a href="#">Opportunity</a>
+        <span class="breadcrumbs-sep">/</span>
+        <span class="breadcrumbs-current">ESPN Linear FY25 NFL Postseason (Divisional) - Final Media Plan 1.2.25</span>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Page Title -->
+      <div class="page-title-row">
+        <h1 class="page-title">Media plan</h1>
+        <span class="tag">Sponsorship</span>
+      </div>
+
+      <!-- Media Plan Details Card -->
+      <div class="card">
+        <!-- Header Row -->
+        <div class="card-header">
+          <div class="card-title-block">
+            <div class="field-label">Media plan name</div>
+            <div class="field-value-lg">
+              ESPN Linear FY25 NFL Postseason (Divisional) - Final Media Plan 1.2.25
+              <span class="edit-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M11.5 2.5L13.5 4.5L5 13H3V11L11.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn">Initiate Salesforce demand case</button>
+            <button class="btn">Change log</button>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="status-row">
+          <div class="field-label">Status</div>
+          <div class="field-value-status">Active</div>
+        </div>
+
+        <!-- Info Row -->
+        <div class="info-row">
+          <div class="info-item">
+            <span class="info-label">Opportunity name</span>
+            <span class="info-value">Zenith US | ESPN DI | FY25 Q2 NFL Divisional | NFL Postseason</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Roku IO ID</span>
+            <span class="info-value">0327466</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Salesforce link</span>
+            <a href="#" class="info-value info-value--link">See details</a>
+          </div>
+        </div>
+
+        <!-- Meta Grid -->
+        <div class="meta-grid">
+          <!-- Column 1 -->
+          <div class="meta-column">
+            <div class="meta-field">
+              <span class="meta-label">Link to RFP details</span>
+              <a href="#" class="meta-value meta-value--link">See details</a>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Media plan start date</span>
+              <span class="meta-value">Jan 1, 2025</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Media plan end date</span>
+              <span class="meta-value">Jan 31, 2025</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Media plan type</span>
+              <span class="meta-value">Proposal</span>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="meta-column">
+            <div class="meta-field">
+              <span class="meta-label">Total spend</span>
+              <span class="meta-value">$279,858.88</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Total impressions</span>
+              <span class="meta-value">11,002,400</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Created on</span>
+              <span class="meta-value">Jan 1, 2025</span>
+            </div>
+          </div>
+
+          <!-- Column 3 - Google Ads Manager -->
+          <div class="meta-column">
+            <div class="meta-column-header">Google Ads Manager</div>
+            <div class="meta-field">
+              <span class="meta-label">Campaign link</span>
+              <a href="#" class="meta-value meta-value--link">123456789</a>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Status</span>
+              <span class="meta-value meta-value--error">Draft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Actions Section -->
+        <div class="actions-section">
+          <div class="actions-left">
+            <div class="actions-buttons">
+              <button class="btn">Refresh avails</button>
+              <button class="btn">Export avils</button>
+              <button class="btn">Initiate avail request</button>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Avails request status</span>
+              <span class="meta-value">--</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Avails request link</span>
+              <span class="meta-value">--</span>
+            </div>
+          </div>
+
+          <div class="actions-center">
+            <button class="btn">Estimate Total Reach</button>
+          </div>
+
+          <div class="actions-right">
+            <div class="overlap-row">
+              <span class="overlap-label">Overlap</span>
+              <span class="tag tag--success">Approved</span>
+              <span class="overlap-timestamp">(as of 09/15/2025 at 09:28am EDT)</span>
+              <a href="#">See details</a>
+            </div>
+            <button class="btn">Check overlap</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing Accordion -->
+      <div class="accordion">
+        <span>Media plan billing info</span>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- Flights Section -->
+      <div class="flights-card">
+        <h2 class="flights-title">Flights</h2>
+
+        <div class="flights-toolbar">
+          <div class="toolbar-left">
+            <!-- Search -->
+            <div class="search-field">
+              <span class="search-icon">
+                <svg viewBox="0 0 20 20" fill="none">
+                  <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M14 14L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <input type="text" placeholder="Search by flight name or ID" />
+            </div>
+
+            <!-- Filter Button -->
+            <button class="icon-btn">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M2 4H14M4 8H12M6 12H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+
+            <!-- Status Select -->
+            <div class="select-field">
+              <span class="select-label">Status</span>
+              <select>
+                <option selected>All</option>
+                <option>Active</option>
+                <option>Archived</option>
+              </select>
+              <span class="select-icons">
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="toolbar-right">
+            <button class="btn btn--primary btn--large">Add flight</button>
+            <button class="btn btn--primary btn--large">Creative Hub</button>
+          </div>
+        </div>
+
+        <!-- Selection Bar (appears when items are selected) -->
+        <div class="selection-bar" id="selectionBar">
+          <div class="selection-bar-left">
+            Items selected: <span id="selectedCount">0</span>
+          </div>
+          <div class="selection-bar-right">
+            <button class="btn">View revenue schedules</button>
+            <button class="btn">Clone</button>
+            <button class="btn">Export</button>
+            <button class="btn">Bulk edit</button>
+            <button class="btn">Multi edit</button>
+            <button class="btn">Edit</button>
+            <button class="btn" id="archiveBtn">Archive</button>
+          </div>
+        </div>
+
+        <!-- Flights Table -->
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th><input type="checkbox" /></th>
+                <th>Flights</th>
+                <th>Flight ID</th>
+                <th>Avails Approved</th>
+                <th class="text-right">Budget</th>
+                <th class="text-right">Quantity</th>
+                <th class="text-right">Sales total</th>
+                <th class="text-right">Sponsored Content</th>
+                <th>Start da</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td><a href="#" class="cell-link">Native Ads (Tile)_Initial Channel Selection_Not PreChecked_Seasonal</a></td>
+                <td>
+                  <span class="cell-id">
+                    <span class="copy-btn" title="Copy">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    Rvbta8C7958C
+                  </span>
+                </td>
+                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td class="text-right">$79,999.99</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td>Jan 01, 2</td>
+                <td><span class="status-badge status-badge--active">Active</span></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td><a href="#" class="cell-link">Native Ads (Tile)_Initial Channel Selection_Not PreChecked_Seasonal 22</a></td>
+                <td>
+                  <span class="cell-id">
+                    <span class="copy-btn" title="Copy">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    TofeeoJX014XW
+                  </span>
+                </td>
+                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td class="text-right">$50,000.00</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td>Jan 01, 2</td>
+                <td><span class="status-badge status-badge--active">Active</span></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td><a href="#" class="cell-link">Video_A18-49_DAR Guaranteed_Fee_Geo_Individual Delivery_Fee_Geo_Fluid Delivery</a></td>
+                <td>
+                  <span class="cell-id">
+                    <span class="copy-btn" title="Copy">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    Jz0qviQL687W0
+                  </span>
+                </td>
+                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td class="text-right">--</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td>Jan 01, 2</td>
+                <td><span class="status-badge status-badge--archived">Archived</span></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td><a href="#" class="cell-link">Video_A18-49_DAR Guaranteed_Fee_Geo_Individual Delivery_Fee_Geo_Fluid Delivery 22</a></td>
+                <td>
+                  <span class="cell-id">
+                    <span class="copy-btn" title="Copy">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    Jz0qviQL687W0
+                  </span>
+                </td>
+                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td class="text-right">--</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td>Jan 01, 2</td>
+                <td><span class="status-badge status-badge--active">Active</span></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td><a href="#" class="cell-link">Video_A18-49_DAR Guaranteed_Fee_Geo_Individual Delivery_Fee_Geo_Fluid Delivery 333</a></td>
+                <td>
+                  <span class="cell-id">
+                    <span class="copy-btn" title="Copy">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    Jz0qviQL687W0
+                  </span>
+                </td>
+                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td class="text-right">--</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td class="text-right">123,456</td>
+                <td>Jan 01, 2</td>
+                <td><span class="status-badge status-badge--archived">Archived</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="archiveToast">
+    <span class="toast-icon">
+      <svg viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="toast-message" id="toastMessage">2 flights were successfully archived</span>
+    <button class="toast-close" id="toastClose">
+      <svg viewBox="0 0 16 16" fill="none">
+        <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Archive Confirmation Modal -->
+  <div class="modal-overlay" id="archiveModal">
+    <div class="modal-dialog">
+      <div class="modal-title">Flight archiving</div>
+      <div class="modal-content">
+        Once the selected flight (s) are archived, they will not be visible in the media plan by default
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--cancel" id="modalCancel">Cancel</button>
+        <button class="modal-btn modal-btn--confirm" id="modalConfirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const selectionBar = document.getElementById('selectionBar');
+      const selectedCountSpan = document.getElementById('selectedCount');
+      const headerCheckbox = document.querySelector('thead input[type="checkbox"]');
+      const rowCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+      const statusSelect = document.querySelector('.select-field select');
+      const tableRows = document.querySelectorAll('tbody tr');
+
+      // Get visible rows (not hidden by filter)
+      function getVisibleRows() {
+        return Array.from(tableRows).filter(row => row.style.display !== 'none');
+      }
+
+      // Get visible checkboxes
+      function getVisibleCheckboxes() {
+        return getVisibleRows().map(row => row.querySelector('input[type="checkbox"]'));
+      }
+
+      function updateSelectionBar() {
+        const visibleCheckboxes = getVisibleCheckboxes();
+        const checkedBoxes = visibleCheckboxes.filter(cb => cb && cb.checked);
+        const count = checkedBoxes.length;
+        
+        selectedCountSpan.textContent = count;
+        
+        if (count > 0) {
+          selectionBar.classList.add('visible');
+        } else {
+          selectionBar.classList.remove('visible');
+        }
+
+        // Update row highlighting
+        rowCheckboxes.forEach(checkbox => {
+          const row = checkbox.closest('tr');
+          if (checkbox.checked) {
+            row.classList.add('selected');
+          } else {
+            row.classList.remove('selected');
+          }
+        });
+
+        // Update header checkbox state based on visible rows only
+        const visibleCount = visibleCheckboxes.length;
+        if (count === 0) {
+          headerCheckbox.checked = false;
+          headerCheckbox.indeterminate = false;
+        } else if (count === visibleCount) {
+          headerCheckbox.checked = true;
+          headerCheckbox.indeterminate = false;
+        } else {
+          headerCheckbox.checked = false;
+          headerCheckbox.indeterminate = true;
+        }
+      }
+
+      // Filter table by status
+      function filterByStatus(status) {
+        tableRows.forEach(row => {
+          const statusBadge = row.querySelector('.status-badge');
+          if (!statusBadge) return;
+          
+          const rowStatus = statusBadge.textContent.trim().toLowerCase();
+          
+          if (status === 'all') {
+            row.style.display = '';
+          } else if (status === 'active' && rowStatus === 'active') {
+            row.style.display = '';
+          } else if (status === 'archived' && rowStatus === 'archived') {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+            // Uncheck hidden rows
+            const checkbox = row.querySelector('input[type="checkbox"]');
+            if (checkbox) checkbox.checked = false;
+          }
+        });
+        
+        updateSelectionBar();
+      }
+
+      // Status filter change
+      statusSelect.addEventListener('change', function() {
+        const selectedStatus = this.value.toLowerCase();
+        filterByStatus(selectedStatus);
+      });
+
+      // Header checkbox - select/deselect all visible rows
+      headerCheckbox.addEventListener('change', function() {
+        const visibleCheckboxes = getVisibleCheckboxes();
+        visibleCheckboxes.forEach(checkbox => {
+          if (checkbox) checkbox.checked = headerCheckbox.checked;
+        });
+        updateSelectionBar();
+      });
+
+      // Individual row checkboxes
+      rowCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectionBar);
+      });
+
+      // Archive Modal Functionality
+      const archiveBtn = document.getElementById('archiveBtn');
+      const archiveModal = document.getElementById('archiveModal');
+      const modalCancel = document.getElementById('modalCancel');
+      const modalConfirm = document.getElementById('modalConfirm');
+
+      // Open modal when Archive button is clicked
+      archiveBtn.addEventListener('click', function() {
+        archiveModal.classList.add('visible');
+      });
+
+      // Close modal on Cancel
+      modalCancel.addEventListener('click', function() {
+        archiveModal.classList.remove('visible');
+      });
+
+      // Close modal when clicking on overlay (outside dialog)
+      archiveModal.addEventListener('click', function(e) {
+        if (e.target === archiveModal) {
+          archiveModal.classList.remove('visible');
+        }
+      });
+
+      // Toast Notification
+      const archiveToast = document.getElementById('archiveToast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastClose = document.getElementById('toastClose');
+      let toastTimeout;
+
+      function showToast(count) {
+        // Update message
+        const flightText = count === 1 ? 'flight was' : 'flights were';
+        toastMessage.textContent = `${count} ${flightText} successfully archived`;
+        
+        // Show toast
+        archiveToast.classList.remove('hiding');
+        archiveToast.classList.add('visible');
+        
+        // Auto-hide after 5 seconds
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(hideToast, 5000);
+      }
+
+      function hideToast() {
+        archiveToast.classList.add('hiding');
+        setTimeout(() => {
+          archiveToast.classList.remove('visible', 'hiding');
+        }, 300);
+      }
+
+      // Close toast on click
+      toastClose.addEventListener('click', hideToast);
+
+      // Confirm archive action
+      modalConfirm.addEventListener('click', function() {
+        // Get all checked rows and change their status to Archived
+        const checkedRows = Array.from(tableRows).filter(row => {
+          const checkbox = row.querySelector('input[type="checkbox"]');
+          return checkbox && checkbox.checked;
+        });
+
+        const archivedCount = checkedRows.length;
+
+        checkedRows.forEach(row => {
+          const statusBadge = row.querySelector('.status-badge');
+          if (statusBadge) {
+            statusBadge.textContent = 'Archived';
+            statusBadge.className = 'status-badge status-badge--archived';
+          }
+          // Uncheck the row
+          const checkbox = row.querySelector('input[type="checkbox"]');
+          if (checkbox) checkbox.checked = false;
+        });
+
+        // Close modal and update UI
+        archiveModal.classList.remove('visible');
+        updateSelectionBar();
+        
+        // Re-apply filter if not set to "All"
+        const currentFilter = statusSelect.value.toLowerCase();
+        if (currentFilter !== 'all') {
+          filterByStatus(currentFilter);
+        }
+
+        // Show success toast
+        if (archivedCount > 0) {
+          showToast(archivedCount);
+        }
+      });
+
+      // Close modal on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && archiveModal.classList.contains('visible')) {
+          archiveModal.classList.remove('visible');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
