@@ -2350,6 +2350,24 @@
         return false;
       }
 
+      function checkMixedDealIds(rows) {
+        // Check if there's a mix of flights with Deal ID and without Deal ID
+        let hasWithDealId = false;
+        let hasWithoutDealId = false;
+        
+        rows.forEach(row => {
+          const dealIdCell = row.cells[2];
+          const dealIdText = dealIdCell.textContent.trim();
+          if (dealIdText === '--' || dealIdText === '') {
+            hasWithoutDealId = true;
+          } else {
+            hasWithDealId = true;
+          }
+        });
+        
+        return hasWithDealId && hasWithoutDealId;
+      }
+
       function updateDealsSelectionBar() {
         const checkedRows = ungroupedTableBody.querySelectorAll('tr:has(input[type="checkbox"]:checked)');
         const checkedCount = checkedRows.length;
@@ -2361,9 +2379,16 @@
           
           // Check for date overlaps
           const hasOverlap = checkDatesOverlap(checkedRows);
+          // Check for mixed Deal IDs
+          const hasMixedDealIds = checkMixedDealIds(checkedRows);
           
           if (hasOverlap) {
             createDealGroupBtn.disabled = true;
+            overlapTooltip.textContent = 'Flights cannot be grouped because there are dates overlap: Please adjust the date ranges so they do not intersect.';
+            overlapTooltip.style.display = '';
+          } else if (hasMixedDealIds) {
+            createDealGroupBtn.disabled = true;
+            overlapTooltip.textContent = "You can't create Group, because you've selected one flight with existing Deal ID";
             overlapTooltip.style.display = '';
           } else {
             createDealGroupBtn.disabled = false;
