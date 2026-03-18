@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tarmac – Media Plan</title>
+  <title>Tarmac – Media Plan (Ad Operations)</title>
   <style>
     :root {
       --bg-subtle: #f5f5f6;
@@ -29,7 +29,6 @@
       --radius-sm: 4px;
       --radius-md: 6px;
       --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -146,32 +145,11 @@
     }
 
     /* ===== PAGE TITLE ===== */
-    .page-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     .page-title {
       font-size: 18px;
       font-weight: 500;
       line-height: 24px;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 16px;
-      background: var(--tag-info-bg);
-      color: var(--tag-info-text);
-    }
-
-    .tag--success {
-      background: var(--tag-success-bg);
+      margin-bottom: 8px;
     }
 
     /* ===== CARD ===== */
@@ -182,7 +160,6 @@
       padding: 20px 24px;
     }
 
-    /* Card Header Row */
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -221,41 +198,167 @@
       flex-shrink: 0;
     }
 
-    /* Button Styles */
+    /* ===== RDS v1 BUTTON SYSTEM ===== */
+    
+    /* Base Button Styles */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
+      gap: 8px;
+      font-family: var(--font-body);
       font-weight: 500;
-      line-height: 20px;
       cursor: pointer;
-      border: 1px solid var(--purple-primary);
-      background: transparent;
-      color: var(--purple-primary);
       white-space: nowrap;
+      border: none;
+      transition: all 0.2s ease;
     }
 
-    .btn:hover { background: rgba(84, 7, 170, 0.04); }
-
-    .btn--primary {
-      background: var(--purple-primary);
-      color: #fff;
+    .btn:focus {
+      outline: 2px solid var(--purple-primary);
+      outline-offset: 2px;
     }
 
-    .btn--primary:hover { background: #4a0699; }
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.38;
+    }
+
+    /* Size Variants */
+    .btn--small {
+      height: 32px;
+      padding: 0 16px;
+      font-size: 13px;
+      line-height: 20px;
+      border-radius: var(--radius-md);
+    }
+
+    .btn--medium {
+      height: 40px;
+      padding: 0 20px;
+      font-size: 13px;
+      line-height: 20px;
+      border-radius: var(--radius-md);
+    }
 
     .btn--large {
-      padding: 10px 16px;
+      height: 48px;
+      padding: 0 24px;
       font-size: 14px;
+      line-height: 24px;
+      border-radius: var(--radius-md);
+    }
+
+    /* Default to small size if no size specified */
+    .btn:not(.btn--medium):not(.btn--large) {
+      height: 32px;
+      padding: 0 16px;
+      font-size: 13px;
+      line-height: 20px;
+      border-radius: var(--radius-md);
+    }
+
+    /* Contained (Primary/Filled) Variant */
+    .btn--contained,
+    .btn--primary {
+      background: var(--purple-primary);
+      color: #ffffff;
+      border: none;
+    }
+
+    .btn--contained:hover,
+    .btn--primary:hover {
+      background: #4a0699;
+      box-shadow: 0 8px 16px rgba(55, 45, 70, 0.12), 0 2px 4px rgba(11, 0, 27, 0.04);
+    }
+
+    .btn--contained:active,
+    .btn--primary:active {
+      background: #3d0580;
+    }
+
+    .btn--contained:disabled,
+    .btn--primary:disabled {
+      background: #e0e0e0;
+      color: #9e9e9e;
+      box-shadow: none;
+    }
+
+    /* Outlined (Secondary) Variant */
+    .btn--outlined,
+    .btn:not(.btn--contained):not(.btn--primary):not(.btn--text) {
+      background: transparent;
+      color: var(--purple-primary);
+      border: 1px solid var(--purple-primary);
+    }
+
+    .btn--outlined:hover,
+    .btn:not(.btn--contained):not(.btn--primary):not(.btn--text):hover {
+      background: rgba(84, 7, 170, 0.04);
+    }
+
+    .btn--outlined:active,
+    .btn:not(.btn--contained):not(.btn--primary):not(.btn--text):active {
+      background: rgba(84, 7, 170, 0.08);
+    }
+
+    .btn--outlined:disabled {
+      border-color: #e0e0e0;
+      color: #9e9e9e;
+      background: transparent;
+    }
+
+    /* Text Variant */
+    .btn--text {
+      background: transparent;
+      color: var(--purple-primary);
+      border: none;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .btn--text:hover {
+      background: rgba(84, 7, 170, 0.04);
+    }
+
+    .btn--text:active {
+      background: rgba(84, 7, 170, 0.08);
+    }
+
+    .btn--text:disabled {
+      color: #9e9e9e;
+      background: transparent;
+    }
+
+    /* Loading State */
+    .btn--loading {
+      position: relative;
+      color: transparent !important;
+    }
+
+    .btn--loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: btn-spin 0.75s linear infinite;
+    }
+
+    .btn--contained.btn--loading::after,
+    .btn--primary.btn--loading::after {
+      border-color: #ffffff;
+      border-right-color: transparent;
+    }
+
+    @keyframes btn-spin {
+      to { transform: rotate(360deg); }
     }
 
     /* Status Row */
-    .status-row {
-      margin-bottom: 8px;
-    }
+    .status-row { margin-bottom: 8px; }
 
     .field-value-status {
       font-size: 18px;
@@ -296,14 +399,13 @@
     .meta-grid {
       display: flex;
       gap: 0;
-      margin-bottom: 16px;
     }
 
     .meta-column {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      width: 349px;
+      width: 280px;
     }
 
     .meta-column-header {
@@ -322,7 +424,7 @@
       font-size: 12px;
       line-height: 16px;
       color: var(--text-body);
-      width: 120px;
+      width: 140px;
       flex-shrink: 0;
     }
 
@@ -333,61 +435,6 @@
     }
 
     .meta-value--link { color: var(--link-blue); }
-    .meta-value--error { color: var(--status-error); }
-
-    /* Divider */
-    .divider {
-      height: 1px;
-      background: var(--border-subtle);
-      margin: 16px 0;
-    }
-
-    /* Actions Section */
-    .actions-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .actions-left {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .actions-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .actions-center {
-      display: flex;
-      align-items: flex-start;
-      padding-top: 0;
-    }
-
-    .actions-right {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: flex-end;
-    }
-
-    .overlap-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .overlap-label {
-      font-size: 12px;
-      line-height: 16px;
-    }
-
-    .overlap-timestamp {
-      font-size: 12px;
-      line-height: 16px;
-    }
 
     /* ===== ACCORDION ===== */
     .accordion {
@@ -425,7 +472,7 @@
     .flights-toolbar {
       display: flex;
       align-items: center;
-      gap: 40px;
+      gap: 16px;
       margin-bottom: 8px;
     }
 
@@ -433,7 +480,7 @@
       display: flex;
       flex: 1;
       align-items: center;
-      gap: 8px;
+      gap: 16px;
       min-width: 0;
     }
 
@@ -447,7 +494,7 @@
     .search-field {
       position: relative;
       flex: 1;
-      min-width: 360px;
+      max-width: 520px;
     }
 
     .search-field input {
@@ -472,26 +519,10 @@
 
     .search-icon svg { width: 20px; height: 20px; }
 
-    /* Icon Button */
-    .icon-btn {
-      width: 44px;
-      height: 44px;
-      border: 2px solid var(--purple-primary);
-      border-radius: var(--radius-md);
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .icon-btn svg { width: 16px; height: 16px; color: var(--purple-primary); }
-
     /* Select Field */
     .select-field {
       position: relative;
-      min-width: 120px;
+      min-width: 140px;
     }
 
     .select-label {
@@ -507,7 +538,7 @@
 
     .select-field select {
       width: 100%;
-      padding: 12px 48px 12px 12px;
+      padding: 12px 40px 12px 12px;
       border: 1px solid var(--border-input);
       border-radius: var(--radius-md);
       font-size: 14px;
@@ -533,7 +564,7 @@
     .table-wrapper {
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      overflow: hidden;
+      overflow-x: auto;
       margin-top: 8px;
     }
 
@@ -542,6 +573,7 @@
       border-collapse: collapse;
       font-size: 12px;
       line-height: 16px;
+      min-width: 1200px;
     }
 
     thead { background: var(--bg-subtle); }
@@ -551,17 +583,18 @@
       text-align: left;
       vertical-align: middle;
       border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
     }
 
     th {
       font-weight: 500;
       color: var(--text-primary);
-      white-space: nowrap;
     }
 
     th:first-child, td:first-child { width: 36px; }
 
     tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: rgba(84, 7, 170, 0.02); }
 
     .cell-link { color: var(--link-blue); }
 
@@ -580,262 +613,404 @@
     .copy-btn:hover { opacity: 1; }
     .copy-btn svg { width: 14px; height: 14px; }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 500;
-      background: #fff3cd;
-      color: #856404;
-      border: 1px solid #ffe69c;
-    }
-
-    .chip-icon {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--status-error);
-      color: #fff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 600;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-
-    .status-badge--active {
-      background: #e6f4ea;
-      color: #1e8e3e;
-      border: 1px solid #c7e8cf;
-    }
-
-    .status-badge--archived {
-      background: #f5f5f6;
-      color: #665d71;
-      border: 1px solid #ddd;
-    }
-
     .text-right { text-align: right; }
 
-    /* ===== TOAST NOTIFICATION ===== */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 24px;
-      display: none;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      background: #e6f4ea;
-      border-radius: 4px;
-      font-size: 14px;
-      line-height: 20px;
-      color: #1e4620;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      z-index: 300;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    .toast.visible {
-      display: flex;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideOut {
-      from {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-    }
-
-    .toast.hiding {
-      animation: slideOut 0.3s ease-in forwards;
-    }
-
-    .toast-icon {
-      width: 20px;
-      height: 20px;
-      background: #1e8e3e;
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      margin-right: 6px;
     }
 
-    .toast-icon svg {
-      width: 12px;
-      height: 12px;
-      color: #fff;
-    }
+    .status-dot--yellow { background: #f9a825; }
+    .status-dot--green { background: #1e8e3e; }
 
-    .toast-message {
-      flex: 1;
-    }
-
-    .toast-close {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      color: #1e4620;
-      opacity: 0.6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .toast-close:hover {
-      opacity: 1;
-    }
-
-    .toast-close svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    /* ===== MODAL OVERLAY ===== */
+    /* ===== DEALS GROUPING MODAL ===== */
     .modal-overlay {
-      display: none;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 200;
+      z-index: 1000;
+      display: none;
+    }
+
+    .modal-overlay.active {
+      display: block;
+    }
+
+    .deals-panel {
+      position: fixed;
+      top: 0;
+      right: -850px;
+      width: 850px;
+      height: 100vh;
+      background: #fff;
+      box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s ease;
+    }
+
+    .deals-panel.active {
+      right: 0;
+    }
+
+    .deals-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .deals-panel-title {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 28px;
+      color: var(--text-primary);
+    }
+
+    .deals-panel-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--text-primary);
     }
 
-    .modal-overlay.visible {
-      display: flex;
+    .deals-panel-close:hover {
+      color: var(--purple-primary);
     }
 
-    .modal-dialog {
-      background: #fff;
-      border-radius: 6px;
-      box-shadow: 0 6px 30px 5px rgba(0, 0, 0, 0.12),
-                  0 16px 24px 2px rgba(0, 0, 0, 0.14),
-                  0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    .deals-panel-close svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .deals-panel-content {
+      flex: 1;
+      overflow: auto;
+      padding: 20px;
+      box-sizing: border-box;
       width: 100%;
-      max-width: 400px;
-      overflow: hidden;
     }
 
-    .modal-title {
-      padding: 16px 24px;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.2;
-      color: rgba(11, 0, 27, 0.87);
-    }
-
-    .modal-content {
-      padding: 0 24px 20px;
+    .deals-panel-description {
       font-size: 14px;
-      line-height: 1.4;
-      color: #101523;
+      line-height: 20px;
+      color: var(--text-primary);
+      margin-bottom: 24px;
     }
 
-    .modal-actions {
-      display: flex;
+    .deals-section-title {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .deals-table {
+      width: 700px !important;
+      max-width: 700px !important;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .deals-table thead {
+      background: #fff;
+    }
+
+    .deals-table th {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 16px;
+      color: var(--text-primary);
+      padding: 10px 4px;
+      text-align: left;
+      border-bottom: 1px solid var(--grey-500);
+      box-sizing: border-box;
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+
+    .deals-table td {
+      font-size: 14px;
+      line-height: 16px;
+      color: var(--text-primary);
+      padding: 10px 4px;
+      vertical-align: middle;
+      border-bottom: 1px solid #cccdc9;
+      box-sizing: border-box;
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+
+    .deals-table th:nth-child(1),
+    .deals-table td:nth-child(1) {
+      width: 28px !important;
+    }
+
+    .deals-table th:nth-child(2),
+    .deals-table td:nth-child(2) {
+      width: 280px !important;
+    }
+
+    .deals-table th:nth-child(3),
+    .deals-table td:nth-child(3) {
+      width: 72px !important;
+    }
+
+    .deals-table th:nth-child(4),
+    .deals-table td:nth-child(4) {
+      width: 160px !important;
+    }
+
+    .deals-table th:nth-child(5),
+    .deals-table td:nth-child(5) {
+      width: 160px !important;
+    }
+
+    .deals-table .flight-name {
+      color: var(--link-blue);
+      font-size: 14px;
+      line-height: 16px;
+      display: block;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    .deals-table input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .deals-add-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       gap: 8px;
-      justify-content: flex-end;
+      margin-top: 16px;
       padding: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      color: var(--purple-primary);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: background 0.2s ease;
     }
 
-    .modal-btn {
+    .deals-add-link:hover {
+      background: rgba(84, 7, 170, 0.04);
+      text-decoration: none;
+    }
+
+    .deals-add-link svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .deals-panel-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Deals Selection Bar */
+    .deals-selection-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-subtle);
+      padding: 8px 16px;
+      margin-bottom: 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .deals-selection-bar.active {
+      display: flex;
+    }
+
+    .deals-selection-bar__count {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: var(--text-primary);
+    }
+
+    .deals-selection-bar__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 8px 22px;
-      border-radius: 6px;
       font-size: 13px;
       font-weight: 500;
       line-height: 24px;
       letter-spacing: 0.46px;
-      cursor: pointer;
-      border: none;
-    }
-
-    .modal-btn--cancel {
-      background: transparent;
-      border: 1px solid var(--purple-primary);
       color: var(--purple-primary);
+      background: #fff;
+      border: 1px solid var(--purple-primary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s ease;
     }
 
-    .modal-btn--cancel:hover {
+    .deals-selection-bar__btn:hover {
       background: rgba(84, 7, 170, 0.04);
     }
 
-    .modal-btn--confirm {
-      background: var(--purple-primary);
-      color: #fff;
-    }
-
-    .modal-btn--confirm:hover {
-      background: #4a0699;
-    }
-
-    /* ===== SELECTION BAR ===== */
-    .selection-bar {
+    /* Success Message */
+    .deals-success-message {
       display: none;
       align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: #fff;
-      border: 1px solid var(--border-subtle);
+      gap: 12px;
+      background: #e8f5e9;
+      border: 1px solid #4caf50;
       border-radius: var(--radius-sm);
-      margin-bottom: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
     }
 
-    .selection-bar.visible {
+    .deals-success-message.active {
       display: flex;
     }
 
-    .selection-bar-left {
+    .deals-success-message__icon {
+      width: 20px;
+      height: 20px;
+      color: #2e7d32;
+      flex-shrink: 0;
+    }
+
+    .deals-success-message__text {
+      flex: 1;
       font-size: 14px;
+      font-weight: 500;
       line-height: 20px;
+      color: #1b5e20;
+    }
+
+    .deals-success-message__close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #2e7d32;
+      display: flex;
+    }
+
+    .deals-success-message__close:hover {
+      color: #1b5e20;
+    }
+
+    .deals-success-message__close svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Group Row */
+    .deals-table .group-row {
+      background: #fff;
+    }
+
+    .deals-table .group-row td {
+      font-weight: 500;
+      vertical-align: middle;
+    }
+
+    .deals-table .group-row td:first-child {
+      vertical-align: middle;
+    }
+
+    .deals-table .group-row .group-cell {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      vertical-align: middle;
+    }
+
+    .deals-table .group-row .group-cell input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      min-height: 18px;
+      flex-shrink: 0;
+      margin: 0;
+    }
+
+    .deals-table .group-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      width: 16px;
+      height: 16px;
+    }
+
+    .deals-table .group-toggle svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease;
+      transform: rotate(180deg);
+    }
+
+    .deals-table .group-toggle.collapsed svg {
+      transform: rotate(-90deg);
+    }
+
+    .deals-table .group-name {
+      font-weight: 500;
       color: var(--text-primary);
     }
 
-    .selection-bar-right {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+    .deals-table .group-child {
+      display: table-row;
     }
 
-    .selection-bar .btn {
-      padding: 6px 16px;
+    .deals-table .group-child.hidden {
+      display: none;
     }
 
-    /* Checkbox styling for selected rows */
-    tbody tr.selected {
-      background: rgba(84, 7, 170, 0.04);
+    .deals-table .group-child td:first-child {
+      padding-left: 28px;
+    }
+
+    /* Grouped Flights Section */
+    .grouped-flights-section {
+      display: none;
+      margin-bottom: 24px;
+    }
+
+    .grouped-flights-section.active {
+      display: block;
+    }
+
+    .grouped-flights-title {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: var(--text-primary);
+      margin-bottom: 16px;
     }
 
     /* ===== RESPONSIVE ===== */
@@ -843,7 +1018,6 @@
       .card-header,
       .info-row,
       .meta-grid,
-      .actions-section,
       .flights-toolbar {
         flex-direction: column;
         align-items: flex-start;
@@ -852,8 +1026,7 @@
       .meta-column { width: 100%; }
       .toolbar-left { width: 100%; }
       .toolbar-right { width: 100%; justify-content: flex-start; }
-      .search-field { min-width: 100%; }
-      .actions-right { align-items: flex-start; }
+      .search-field { max-width: 100%; }
     }
   </style>
 </head>
@@ -878,8 +1051,8 @@
     <!-- Local Header -->
     <div class="local-header">
       <div class="tabs">
-        <button class="tab tab--active">Client Service</button>
-        <button class="tab">Ad Operations</button>
+        <button class="tab">Client Service</button>
+        <button class="tab tab--active">Ad Operations</button>
       </div>
       <nav class="breadcrumbs">
         <a href="#">Home</a>
@@ -893,10 +1066,7 @@
     <!-- Main Content -->
     <main class="main">
       <!-- Page Title -->
-      <div class="page-title-row">
-        <h1 class="page-title">Media plan</h1>
-        <span class="tag">Sponsorship</span>
-      </div>
+      <h1 class="page-title">Media plan</h1>
 
       <!-- Media Plan Details Card -->
       <div class="card">
@@ -914,8 +1084,9 @@
             </div>
           </div>
           <div class="card-actions">
-            <button class="btn">Initiate Salesforce demand case</button>
-            <button class="btn">Change log</button>
+            <button class="btn btn--outlined btn--small">Initiate campaign launch case</button>
+            <button class="btn btn--outlined btn--small">Change log</button>
+            <button class="btn btn--contained btn--small">Change log</button>
           </div>
         </div>
 
@@ -929,7 +1100,7 @@
         <div class="info-row">
           <div class="info-item">
             <span class="info-label">Opportunity name</span>
-            <span class="info-value">Zenith US | ESPN DI | FY25 Q2 NFL Divisional | NFL Postseason</span>
+            <span class="info-value">Test Avengy | Test Brand | DI | MV: Default Test Opp</span>
           </div>
           <div class="info-item">
             <span class="info-label">Roku IO ID</span>
@@ -946,7 +1117,7 @@
           <!-- Column 1 -->
           <div class="meta-column">
             <div class="meta-field">
-              <span class="meta-label">Link to RFP details</span>
+              <span class="meta-label">RFP details link in Salesforce</span>
               <a href="#" class="meta-value meta-value--link">See details</a>
             </div>
             <div class="meta-field">
@@ -954,12 +1125,12 @@
               <span class="meta-value">Jan 1, 2025</span>
             </div>
             <div class="meta-field">
-              <span class="meta-label">Media plan end date</span>
-              <span class="meta-value">Jan 31, 2025</span>
+              <span class="meta-label">Rate type</span>
+              <span class="meta-value">n/a</span>
             </div>
             <div class="meta-field">
-              <span class="meta-label">Media plan type</span>
-              <span class="meta-value">Proposal</span>
+              <span class="meta-label">Rate</span>
+              <span class="meta-value">0</span>
             </div>
           </div>
 
@@ -977,54 +1148,22 @@
               <span class="meta-label">Created on</span>
               <span class="meta-value">Jan 1, 2025</span>
             </div>
+            <div class="meta-field">
+              <span class="meta-label">Media plan type</span>
+              <span class="meta-value">Order</span>
+            </div>
           </div>
 
-          <!-- Column 3 - Google Ads Manager -->
+          <!-- Column 3 -->
           <div class="meta-column">
-            <div class="meta-column-header">Google Ads Manager</div>
             <div class="meta-field">
-              <span class="meta-label">Campaign link</span>
-              <a href="#" class="meta-value meta-value--link">123456789</a>
-            </div>
-            <div class="meta-field">
-              <span class="meta-label">Status</span>
-              <span class="meta-value meta-value--error">Draft</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- Actions Section -->
-        <div class="actions-section">
-          <div class="actions-left">
-            <div class="actions-buttons">
-              <button class="btn">Refresh avails</button>
-              <button class="btn">Export avils</button>
-              <button class="btn">Initiate avail request</button>
+              <span class="meta-label">Execution type</span>
+              <span class="meta-value">Programmatic Dynamic</span>
             </div>
             <div class="meta-field">
-              <span class="meta-label">Avails request status</span>
-              <span class="meta-value">--</span>
+              <span class="meta-label">RAMs Demand System</span>
+              <span class="meta-value">MCTV (4)</span>
             </div>
-            <div class="meta-field">
-              <span class="meta-label">Avails request link</span>
-              <span class="meta-value">--</span>
-            </div>
-          </div>
-
-          <div class="actions-center">
-            <button class="btn">Estimate Total Reach</button>
-          </div>
-
-          <div class="actions-right">
-            <div class="overlap-row">
-              <span class="overlap-label">Overlap</span>
-              <span class="tag tag--success">Approved</span>
-              <span class="overlap-timestamp">(as of 09/15/2025 at 09:28am EDT)</span>
-              <a href="#">See details</a>
-            </div>
-            <button class="btn">Check overlap</button>
           </div>
         </div>
       </div>
@@ -1054,25 +1193,15 @@
               <input type="text" placeholder="Search by flight name or ID" />
             </div>
 
-            <!-- Filter Button -->
-            <button class="icon-btn">
-              <svg viewBox="0 0 16 16" fill="none">
-                <path d="M2 4H14M4 8H12M6 12H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-
-            <!-- Status Select -->
+            <!-- View Select -->
             <div class="select-field">
-              <span class="select-label">Status</span>
+              <span class="select-label">View</span>
               <select>
-                <option selected>All</option>
-                <option>Active</option>
-                <option>Archived</option>
+                <option selected>Sales template</option>
+                <option>Operations template</option>
+                <option>Custom</option>
               </select>
               <span class="select-icons">
-                <svg viewBox="0 0 16 16" fill="none">
-                  <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
                 <svg viewBox="0 0 16 16" fill="none">
                   <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -1082,23 +1211,7 @@
 
           <div class="toolbar-right">
             <button class="btn btn--primary btn--large">Add flight</button>
-            <button class="btn btn--primary btn--large">Creative Hub</button>
-          </div>
-        </div>
-
-        <!-- Selection Bar (appears when items are selected) -->
-        <div class="selection-bar" id="selectionBar">
-          <div class="selection-bar-left">
-            Items selected: <span id="selectedCount">0</span>
-          </div>
-          <div class="selection-bar-right">
-            <button class="btn">View revenue schedules</button>
-            <button class="btn">Clone</button>
-            <button class="btn">Export</button>
-            <button class="btn">Bulk edit</button>
-            <button class="btn">Multi edit</button>
-            <button class="btn">Edit</button>
-            <button class="btn" id="archiveBtn">Archive</button>
+            <button class="btn btn--primary btn--large" id="dealsGroupingBtn">Deals grouping</button>
           </div>
         </div>
 
@@ -1110,19 +1223,23 @@
                 <th><input type="checkbox" /></th>
                 <th>Flights</th>
                 <th>Flight ID</th>
-                <th>Avails Approved</th>
+                <th>Deal ID</th>
+                <th class="text-right">Delivered amount</th>
+                <th class="text-right">Delivered quantity</th>
                 <th class="text-right">Budget</th>
                 <th class="text-right">Quantity</th>
-                <th class="text-right">Sales total</th>
-                <th class="text-right">Sponsored Content</th>
-                <th>Start da</th>
-                <th>Status</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Execution</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><input type="checkbox" /></td>
-                <td><a href="#" class="cell-link">Native Ads (Tile)_Initial Channel Selection_Not PreChecked_Seasonal</a></td>
+                <td>
+                  <span class="status-dot status-dot--yellow"></span>
+                  <a href="#" class="cell-link">TFL0282296_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0355584</a>
+                </td>
                 <td>
                   <span class="cell-id">
                     <span class="copy-btn" title="Copy">
@@ -1131,64 +1248,24 @@
                         <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </span>
-                    Rvbta8C7958C
+                    RvabtaBC795BC
                   </span>
                 </td>
-                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
-                <td class="text-right">$79,999.99</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td>Jan 01, 2</td>
-                <td><span class="status-badge status-badge--active">Active</span></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td><a href="#" class="cell-link">Native Ads (Tile)_Initial Channel Selection_Not PreChecked_Seasonal 22</a></td>
-                <td>
-                  <span class="cell-id">
-                    <span class="copy-btn" title="Copy">
-                      <svg viewBox="0 0 16 16" fill="none">
-                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                      </svg>
-                    </span>
-                    TofeeoJX014XW
-                  </span>
-                </td>
-                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
-                <td class="text-right">$50,000.00</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td>Jan 01, 2</td>
-                <td><span class="status-badge status-badge--active">Active</span></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td><a href="#" class="cell-link">Video_A18-49_DAR Guaranteed_Fee_Geo_Individual Delivery_Fee_Geo_Fluid Delivery</a></td>
-                <td>
-                  <span class="cell-id">
-                    <span class="copy-btn" title="Copy">
-                      <svg viewBox="0 0 16 16" fill="none">
-                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                      </svg>
-                    </span>
-                    Jz0qviQL687W0
-                  </span>
-                </td>
-                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td>--</td>
+                <td class="text-right">$0.00</td>
                 <td class="text-right">--</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td>Jan 01, 2</td>
-                <td><span class="status-badge status-badge--archived">Archived</span></td>
+                <td class="text-right">$0.00</td>
+                <td class="text-right">$0.00</td>
+                <td>Jan 01, 2025</td>
+                <td>March 31, 2026</td>
+                <td>Beeswax</td>
               </tr>
               <tr>
                 <td><input type="checkbox" /></td>
-                <td><a href="#" class="cell-link">Video_A18-49_DAR Guaranteed_Fee_Geo_Individual Delivery_Fee_Geo_Fluid Delivery 22</a></td>
+                <td>
+                  <span class="status-dot status-dot--yellow"></span>
+                  <a href="#" class="cell-link">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353345</a>
+                </td>
                 <td>
                   <span class="cell-id">
                     <span class="copy-btn" title="Copy">
@@ -1197,20 +1274,24 @@
                         <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </span>
-                    Jz0qviQL687W0
+                    RvabtaBC795EE
                   </span>
                 </td>
-                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td>--</td>
+                <td class="text-right">$0.00</td>
                 <td class="text-right">--</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td>Jan 01, 2</td>
-                <td><span class="status-badge status-badge--active">Active</span></td>
+                <td class="text-right">$0.00</td>
+                <td class="text-right">$0.00</td>
+                <td>April 1, 2026</td>
+                <td>June 30, 2026</td>
+                <td>The Trade</td>
               </tr>
               <tr>
                 <td><input type="checkbox" /></td>
-                <td><a href="#" class="cell-link">Video_A18-49_DAR Guaranteed_Fee_Geo_Individual Delivery_Fee_Geo_Fluid Delivery 333</a></td>
+                <td>
+                  <span class="status-dot status-dot--yellow"></span>
+                  <a href="#" class="cell-link">TFL0280022_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0350012</a>
+                </td>
                 <td>
                   <span class="cell-id">
                     <span class="copy-btn" title="Copy">
@@ -1219,16 +1300,43 @@
                         <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </span>
-                    Jz0qviQL687W0
+                    RvabtaBC79599
                   </span>
                 </td>
-                <td><span class="chip">Needs review <span class="chip-icon">!</span></span></td>
+                <td>--</td>
+                <td class="text-right">$0.00</td>
                 <td class="text-right">--</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td class="text-right">123,456</td>
-                <td>Jan 01, 2</td>
-                <td><span class="status-badge status-badge--archived">Archived</span></td>
+                <td class="text-right">$0.00</td>
+                <td class="text-right">$0.00</td>
+                <td>July 1, 2026</td>
+                <td>Sep 30, 2026</td>
+                <td>Adobe</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>
+                  <span class="status-dot status-dot--yellow"></span>
+                  <a href="#" class="cell-link">TFL0288821_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353380</a>
+                </td>
+                <td>
+                  <span class="cell-id">
+                    <span class="copy-btn" title="Copy">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    RvabtaBC795B8
+                  </span>
+                </td>
+                <td>--</td>
+                <td class="text-right">$0.00</td>
+                <td class="text-right">--</td>
+                <td class="text-right">$0.00</td>
+                <td class="text-right">$0.00</td>
+                <td>Oct 1, 2026</td>
+                <td>Dec 31, 2026</td>
+                <td>DV360</td>
               </tr>
             </tbody>
           </table>
@@ -1237,232 +1345,312 @@
     </main>
   </div>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="archiveToast">
-    <span class="toast-icon">
-      <svg viewBox="0 0 12 12" fill="none">
-        <path d="M2 6L5 9L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </span>
-    <span class="toast-message" id="toastMessage">2 flights were successfully archived</span>
-    <button class="toast-close" id="toastClose">
-      <svg viewBox="0 0 16 16" fill="none">
-        <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </button>
-  </div>
+  <!-- Deals Grouping Modal Overlay -->
+  <div class="modal-overlay" id="dealsOverlay"></div>
 
-  <!-- Archive Confirmation Modal -->
-  <div class="modal-overlay" id="archiveModal">
-    <div class="modal-dialog">
-      <div class="modal-title">Flight archiving</div>
-      <div class="modal-content">
-        Once the selected flight (s) are archived, they will not be visible in the media plan by default
+  <!-- Deals Grouping Panel -->
+  <div class="deals-panel" id="dealsPanel">
+    <div class="deals-panel-header">
+      <h2 class="deals-panel-title">Deals Grouping</h2>
+      <button class="deals-panel-close" id="closePanelBtn" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="deals-panel-content">
+      <p class="deals-panel-description">Select flights to group for shared Deal ID</p>
+
+      <!-- Success Message -->
+      <div class="deals-success-message" id="dealsSuccessMessage">
+        <svg class="deals-success-message__icon" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="2"/>
+          <path d="M6 10L9 13L14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="deals-success-message__text">New Deal Group of flights was successfully created</span>
+        <button class="deals-success-message__close" id="closeSuccessMessage">
+          <svg viewBox="0 0 20 20" fill="none">
+            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
-      <div class="modal-actions">
-        <button class="modal-btn modal-btn--cancel" id="modalCancel">Cancel</button>
-        <button class="modal-btn modal-btn--confirm" id="modalConfirm">Confirm</button>
+
+      <!-- Grouped Flights Section -->
+      <div class="grouped-flights-section" id="groupedFlightsSection">
+        <h3 class="deals-section-title">Grouped Flights</h3>
+        <table class="deals-table" id="groupedTable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Flights</th>
+              <th>Deal id</th>
+              <th>Start date</th>
+              <th>End date</th>
+            </tr>
+          </thead>
+          <tbody id="groupedTableBody">
+            <!-- Group rows will be inserted here dynamically -->
+          </tbody>
+        </table>
       </div>
+
+      <!-- Ungrouped Flights Section -->
+      <h3 class="deals-section-title">Ungrouped Flights</h3>
+
+      <!-- Selection Bar -->
+      <div class="deals-selection-bar" id="dealsSelectionBar">
+        <span class="deals-selection-bar__count">Selected: <span id="dealsSelectedCount">0</span></span>
+        <button class="deals-selection-bar__btn" id="createDealGroupBtn">Create Deal Group</button>
+      </div>
+
+      <table class="deals-table" id="dealsTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Flights</th>
+            <th>Deal id</th>
+            <th>Start date</th>
+            <th>End date</th>
+          </tr>
+        </thead>
+        <tbody id="ungroupedTableBody">
+          <tr data-flight-id="1">
+            <td><input type="checkbox" /></td>
+            <td><a href="#" class="flight-name">TFL0282295_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0355584</a></td>
+            <td>--</td>
+            <td>Jan 1, 2026</td>
+            <td>Jan 31, 2026</td>
+          </tr>
+          <tr data-flight-id="2">
+            <td><input type="checkbox" /></td>
+            <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353345</a></td>
+            <td>--</td>
+            <td>Mar 1, 2026</td>
+            <td>Mar 15, 2026</td>
+          </tr>
+          <tr data-flight-id="3">
+            <td><input type="checkbox" /></td>
+            <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353377</a></td>
+            <td>--</td>
+            <td>Jun 1, 2026</td>
+            <td>Jun 30, 2026</td>
+          </tr>
+          <tr data-flight-id="4">
+            <td><input type="checkbox" /></td>
+            <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353355</a></td>
+            <td>--</td>
+            <td>Aug 1, 2026</td>
+            <td>Aug 15, 2026</td>
+          </tr>
+          <tr data-flight-id="5">
+            <td><input type="checkbox" /></td>
+            <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353366</a></td>
+            <td>--</td>
+            <td>Sep 1, 2026</td>
+            <td>Sep 15, 2026</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <a href="#" class="deals-add-link">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Assign deal from another opportunity
+      </a>
+    </div>
+
+    <div class="deals-panel-footer">
+      <button class="btn btn--contained btn--medium" id="closePanelBtnFooter">Close</button>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const selectionBar = document.getElementById('selectionBar');
-      const selectedCountSpan = document.getElementById('selectedCount');
-      const headerCheckbox = document.querySelector('thead input[type="checkbox"]');
-      const rowCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-      const statusSelect = document.querySelector('.select-field select');
-      const tableRows = document.querySelectorAll('tbody tr');
+      // Main table checkbox handling
+      const headerCheckbox = document.querySelector('.table-wrapper thead input[type="checkbox"]');
+      const rowCheckboxes = document.querySelectorAll('.table-wrapper tbody input[type="checkbox"]');
 
-      // Get visible rows (not hidden by filter)
-      function getVisibleRows() {
-        return Array.from(tableRows).filter(row => row.style.display !== 'none');
-      }
-
-      // Get visible checkboxes
-      function getVisibleCheckboxes() {
-        return getVisibleRows().map(row => row.querySelector('input[type="checkbox"]'));
-      }
-
-      function updateSelectionBar() {
-        const visibleCheckboxes = getVisibleCheckboxes();
-        const checkedBoxes = visibleCheckboxes.filter(cb => cb && cb.checked);
-        const count = checkedBoxes.length;
-        
-        selectedCountSpan.textContent = count;
-        
-        if (count > 0) {
-          selectionBar.classList.add('visible');
-        } else {
-          selectionBar.classList.remove('visible');
-        }
-
-        // Update row highlighting
-        rowCheckboxes.forEach(checkbox => {
-          const row = checkbox.closest('tr');
-          if (checkbox.checked) {
-            row.classList.add('selected');
-          } else {
-            row.classList.remove('selected');
-          }
-        });
-
-        // Update header checkbox state based on visible rows only
-        const visibleCount = visibleCheckboxes.length;
-        if (count === 0) {
-          headerCheckbox.checked = false;
-          headerCheckbox.indeterminate = false;
-        } else if (count === visibleCount) {
-          headerCheckbox.checked = true;
-          headerCheckbox.indeterminate = false;
-        } else {
-          headerCheckbox.checked = false;
-          headerCheckbox.indeterminate = true;
-        }
-      }
-
-      // Filter table by status
-      function filterByStatus(status) {
-        tableRows.forEach(row => {
-          const statusBadge = row.querySelector('.status-badge');
-          if (!statusBadge) return;
-          
-          const rowStatus = statusBadge.textContent.trim().toLowerCase();
-          
-          if (status === 'all') {
-            row.style.display = '';
-          } else if (status === 'active' && rowStatus === 'active') {
-            row.style.display = '';
-          } else if (status === 'archived' && rowStatus === 'archived') {
-            row.style.display = '';
-          } else {
-            row.style.display = 'none';
-            // Uncheck hidden rows
-            const checkbox = row.querySelector('input[type="checkbox"]');
-            if (checkbox) checkbox.checked = false;
-          }
-        });
-        
-        updateSelectionBar();
-      }
-
-      // Status filter change
-      statusSelect.addEventListener('change', function() {
-        const selectedStatus = this.value.toLowerCase();
-        filterByStatus(selectedStatus);
-      });
-
-      // Header checkbox - select/deselect all visible rows
+      // Header checkbox - select/deselect all
       headerCheckbox.addEventListener('change', function() {
-        const visibleCheckboxes = getVisibleCheckboxes();
-        visibleCheckboxes.forEach(checkbox => {
-          if (checkbox) checkbox.checked = headerCheckbox.checked;
+        rowCheckboxes.forEach(checkbox => {
+          checkbox.checked = headerCheckbox.checked;
         });
-        updateSelectionBar();
       });
 
-      // Individual row checkboxes
+      // Update header checkbox state when individual checkboxes change
       rowCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateSelectionBar);
-      });
-
-      // Archive Modal Functionality
-      const archiveBtn = document.getElementById('archiveBtn');
-      const archiveModal = document.getElementById('archiveModal');
-      const modalCancel = document.getElementById('modalCancel');
-      const modalConfirm = document.getElementById('modalConfirm');
-
-      // Open modal when Archive button is clicked
-      archiveBtn.addEventListener('click', function() {
-        archiveModal.classList.add('visible');
-      });
-
-      // Close modal on Cancel
-      modalCancel.addEventListener('click', function() {
-        archiveModal.classList.remove('visible');
-      });
-
-      // Close modal when clicking on overlay (outside dialog)
-      archiveModal.addEventListener('click', function(e) {
-        if (e.target === archiveModal) {
-          archiveModal.classList.remove('visible');
-        }
-      });
-
-      // Toast Notification
-      const archiveToast = document.getElementById('archiveToast');
-      const toastMessage = document.getElementById('toastMessage');
-      const toastClose = document.getElementById('toastClose');
-      let toastTimeout;
-
-      function showToast(count) {
-        // Update message
-        const flightText = count === 1 ? 'flight was' : 'flights were';
-        toastMessage.textContent = `${count} ${flightText} successfully archived`;
-        
-        // Show toast
-        archiveToast.classList.remove('hiding');
-        archiveToast.classList.add('visible');
-        
-        // Auto-hide after 5 seconds
-        clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(hideToast, 5000);
-      }
-
-      function hideToast() {
-        archiveToast.classList.add('hiding');
-        setTimeout(() => {
-          archiveToast.classList.remove('visible', 'hiding');
-        }, 300);
-      }
-
-      // Close toast on click
-      toastClose.addEventListener('click', hideToast);
-
-      // Confirm archive action
-      modalConfirm.addEventListener('click', function() {
-        // Get all checked rows and change their status to Archived
-        const checkedRows = Array.from(tableRows).filter(row => {
-          const checkbox = row.querySelector('input[type="checkbox"]');
-          return checkbox && checkbox.checked;
-        });
-
-        const archivedCount = checkedRows.length;
-
-        checkedRows.forEach(row => {
-          const statusBadge = row.querySelector('.status-badge');
-          if (statusBadge) {
-            statusBadge.textContent = 'Archived';
-            statusBadge.className = 'status-badge status-badge--archived';
+        checkbox.addEventListener('change', function() {
+          const checkedCount = document.querySelectorAll('.table-wrapper tbody input[type="checkbox"]:checked').length;
+          if (checkedCount === 0) {
+            headerCheckbox.checked = false;
+            headerCheckbox.indeterminate = false;
+          } else if (checkedCount === rowCheckboxes.length) {
+            headerCheckbox.checked = true;
+            headerCheckbox.indeterminate = false;
+          } else {
+            headerCheckbox.checked = false;
+            headerCheckbox.indeterminate = true;
           }
-          // Uncheck the row
-          const checkbox = row.querySelector('input[type="checkbox"]');
-          if (checkbox) checkbox.checked = false;
+        });
+      });
+
+      // Deals Grouping Panel Functionality
+      const dealsOverlay = document.getElementById('dealsOverlay');
+      const dealsPanel = document.getElementById('dealsPanel');
+      const closePanelBtn = document.getElementById('closePanelBtn');
+      const closePanelBtnFooter = document.getElementById('closePanelBtnFooter');
+      const dealsGroupingBtn = document.getElementById('dealsGroupingBtn');
+
+      function openDealsPanel() {
+        dealsOverlay.classList.add('active');
+        dealsPanel.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDealsPanel() {
+        dealsOverlay.classList.remove('active');
+        dealsPanel.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      // Event listeners for opening/closing the panel
+      if (dealsGroupingBtn) {
+        dealsGroupingBtn.addEventListener('click', openDealsPanel);
+      }
+
+      closePanelBtn.addEventListener('click', closeDealsPanel);
+      closePanelBtnFooter.addEventListener('click', closeDealsPanel);
+      dealsOverlay.addEventListener('click', closeDealsPanel);
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && dealsPanel.classList.contains('active')) {
+          closeDealsPanel();
+        }
+      });
+
+      // Deals Table Selection Bar and Group Creation
+      const dealsTable = document.getElementById('dealsTable');
+      const ungroupedTableBody = document.getElementById('ungroupedTableBody');
+      const groupedTableBody = document.getElementById('groupedTableBody');
+      const groupedFlightsSection = document.getElementById('groupedFlightsSection');
+      const dealsSelectionBar = document.getElementById('dealsSelectionBar');
+      const dealsSelectedCount = document.getElementById('dealsSelectedCount');
+      const createDealGroupBtn = document.getElementById('createDealGroupBtn');
+      const dealsSuccessMessage = document.getElementById('dealsSuccessMessage');
+      const closeSuccessMessage = document.getElementById('closeSuccessMessage');
+
+      let groupCounter = 0;
+
+      function updateDealsSelectionBar() {
+        const checkedCount = ungroupedTableBody.querySelectorAll('input[type="checkbox"]:checked').length;
+        
+        if (checkedCount > 0) {
+          dealsSelectionBar.classList.add('active');
+          dealsSelectedCount.textContent = checkedCount;
+        } else {
+          dealsSelectionBar.classList.remove('active');
+        }
+      }
+
+      function attachCheckboxListeners() {
+        const checkboxes = ungroupedTableBody.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+          checkbox.removeEventListener('change', updateDealsSelectionBar);
+          checkbox.addEventListener('change', updateDealsSelectionBar);
+        });
+      }
+
+      function createDealGroup() {
+        const checkedRows = ungroupedTableBody.querySelectorAll('tr:has(input[type="checkbox"]:checked)');
+        if (checkedRows.length === 0) return;
+
+        groupCounter++;
+        const groupId = 'group-' + groupCounter;
+
+        // Calculate date range from selected flights
+        let minStartDate = null;
+        let maxEndDate = null;
+        checkedRows.forEach(row => {
+          const startDateText = row.cells[3].textContent;
+          const endDateText = row.cells[4].textContent;
+          const startDate = new Date(startDateText);
+          const endDate = new Date(endDateText);
+          
+          if (!minStartDate || startDate < minStartDate) minStartDate = startDate;
+          if (!maxEndDate || endDate > maxEndDate) maxEndDate = endDate;
         });
 
-        // Close modal and update UI
-        archiveModal.classList.remove('visible');
-        updateSelectionBar();
-        
-        // Re-apply filter if not set to "All"
-        const currentFilter = statusSelect.value.toLowerCase();
-        if (currentFilter !== 'all') {
-          filterByStatus(currentFilter);
-        }
+        const formatDate = (date) => {
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+        };
 
-        // Show success toast
-        if (archivedCount > 0) {
-          showToast(archivedCount);
-        }
-      });
+        // Create group header row
+        const groupRow = document.createElement('tr');
+        groupRow.className = 'group-row';
+        groupRow.dataset.groupId = groupId;
+        groupRow.innerHTML = `
+          <td>
+            <div class="group-cell">
+              <button class="group-toggle" data-group="${groupId}">
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <input type="checkbox" />
+            </div>
+          </td>
+          <td><span class="group-name">Group ${groupCounter}</span></td>
+          <td>--</td>
+          <td>${formatDate(minStartDate)}</td>
+          <td>${formatDate(maxEndDate)}</td>
+        `;
 
-      // Close modal on Escape key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && archiveModal.classList.contains('visible')) {
-          archiveModal.classList.remove('visible');
-        }
-      });
+        groupedTableBody.appendChild(groupRow);
+
+        // Move checked rows to grouped section as child rows
+        checkedRows.forEach(row => {
+          row.classList.add('group-child');
+          row.dataset.parentGroup = groupId;
+          row.querySelector('input[type="checkbox"]').checked = false;
+          groupedTableBody.appendChild(row);
+        });
+
+        // Show grouped section and success message
+        groupedFlightsSection.classList.add('active');
+        dealsSuccessMessage.classList.add('active');
+        dealsSelectionBar.classList.remove('active');
+
+        // Update checkbox listeners for remaining rows
+        attachCheckboxListeners();
+
+        // Add toggle functionality for the new group
+        const toggleBtn = groupRow.querySelector('.group-toggle');
+        toggleBtn.addEventListener('click', function() {
+          this.classList.toggle('collapsed');
+          const childRows = groupedTableBody.querySelectorAll(`tr[data-parent-group="${groupId}"]`);
+          childRows.forEach(child => {
+            child.classList.toggle('hidden');
+          });
+        });
+      }
+
+      // Event listeners
+      if (createDealGroupBtn) {
+        createDealGroupBtn.addEventListener('click', createDealGroup);
+      }
+
+      if (closeSuccessMessage) {
+        closeSuccessMessage.addEventListener('click', function() {
+          dealsSuccessMessage.classList.remove('active');
+        });
+      }
+
+      // Initialize checkbox listeners
+      attachCheckboxListeners();
     });
   </script>
 </body>
