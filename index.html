@@ -216,6 +216,10 @@
     }
 
     .btn:focus {
+      outline: none;
+    }
+    
+    .btn:focus-visible {
       outline: 2px solid var(--purple-primary);
       outline-offset: 2px;
     }
@@ -826,8 +830,9 @@
     }
 
     .deals-table {
-      width: 700px !important;
-      max-width: 700px !important;
+      width: 100%;
+      max-width: 100%;
+      min-width: unset;
       border-collapse: collapse;
       table-layout: fixed;
     }
@@ -841,59 +846,65 @@
       font-weight: 700;
       line-height: 16px;
       color: var(--text-primary);
-      padding: 10px 4px;
+      padding: 8px 4px;
       text-align: left;
       border-bottom: 1px solid var(--grey-500);
       box-sizing: border-box;
-      overflow: hidden;
-      word-wrap: break-word;
+      white-space: normal;
     }
 
     .deals-table td {
       font-size: 14px;
       line-height: 16px;
       color: var(--text-primary);
-      padding: 10px 4px;
+      padding: 8px 4px;
       vertical-align: middle;
       border-bottom: 1px solid #cccdc9;
       box-sizing: border-box;
-      overflow: hidden;
-      word-wrap: break-word;
+      white-space: normal;
     }
 
+    /* Column 1: Checkbox - 40px */
     .deals-table th:nth-child(1),
     .deals-table td:nth-child(1) {
-      width: 28px !important;
+      width: 40px;
+      padding-right: 0;
     }
 
+    /* Column 2: Flights - 410px */
     .deals-table th:nth-child(2),
     .deals-table td:nth-child(2) {
-      width: 280px !important;
+      width: 410px;
+      padding-left: 16px;
     }
 
+    /* Column 3: Deal ID - 90px */
     .deals-table th:nth-child(3),
     .deals-table td:nth-child(3) {
-      width: 72px !important;
+      width: 90px;
     }
 
+    /* Column 4: Start date - 120px */
     .deals-table th:nth-child(4),
     .deals-table td:nth-child(4) {
-      width: 160px !important;
+      width: 120px;
     }
 
+    /* Column 5: End date - 120px */
     .deals-table th:nth-child(5),
     .deals-table td:nth-child(5) {
-      width: 160px !important;
+      width: 120px;
     }
 
     .deals-table .flight-name {
       color: var(--link-blue);
       font-size: 14px;
-      line-height: 16px;
+      line-height: 18px;
       display: block;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+      max-width: 100%;
       white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .deals-table input[type="checkbox"] {
@@ -1073,10 +1084,18 @@
     /* Assign Deal Wizard */
     .assign-deal-content {
       display: none;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     .assign-deal-content.active {
-      display: block;
+      display: flex;
+    }
+
+    .assign-deal-table-wrapper {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
     }
 
     .assign-deal-subtitle {
@@ -1167,7 +1186,57 @@
 
     .assign-deal-table {
       width: 100%;
+      max-width: 100%;
+      min-width: unset;
       border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    /* Column widths for 4-column tables (Opportunities, Media Plans) */
+    .assign-deal-table th:nth-child(1),
+    .assign-deal-table td:nth-child(1) {
+      width: 50%;
+    }
+
+    .assign-deal-table th:nth-child(2),
+    .assign-deal-table td:nth-child(2) {
+      width: 15%;
+    }
+
+    .assign-deal-table th:nth-child(3),
+    .assign-deal-table td:nth-child(3) {
+      width: 17%;
+    }
+
+    .assign-deal-table th:nth-child(4),
+    .assign-deal-table td:nth-child(4) {
+      width: 18%;
+    }
+
+    /* Column widths for 5-column flights table (Step 3) */
+    #assignFlightsTable th:nth-child(1),
+    #assignFlightsTable td:nth-child(1) {
+      width: 40px;
+    }
+
+    #assignFlightsTable th:nth-child(2),
+    #assignFlightsTable td:nth-child(2) {
+      width: 45%;
+    }
+
+    #assignFlightsTable th:nth-child(3),
+    #assignFlightsTable td:nth-child(3) {
+      width: 15%;
+    }
+
+    #assignFlightsTable th:nth-child(4),
+    #assignFlightsTable td:nth-child(4) {
+      width: 20%;
+    }
+
+    #assignFlightsTable th:nth-child(5),
+    #assignFlightsTable td:nth-child(5) {
+      width: 20%;
     }
 
     .assign-deal-table th {
@@ -1177,6 +1246,7 @@
       padding: 12px 8px;
       text-align: left;
       border-bottom: 1px solid var(--grey-500);
+      white-space: normal;
     }
 
     .assign-deal-table td {
@@ -1185,6 +1255,7 @@
       padding: 12px 8px;
       border-bottom: 1px solid var(--border-subtle);
       vertical-align: middle;
+      white-space: normal;
     }
 
     .assign-deal-table tr {
@@ -1201,6 +1272,11 @@
 
     .assign-deal-table .link-text {
       color: var(--link-blue);
+      display: block;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-width: 100%;
     }
 
     .assign-deal-table .tag {
@@ -1635,7 +1711,7 @@
                         <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </span>
-                    RvabtaBC795BC
+                    DL785420
                   </span>
                 </td>
                 <td>--</td>
@@ -1661,7 +1737,7 @@
                         <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </span>
-                    RvabtaBC795EE
+                    DL785421
                   </span>
                 </td>
                 <td>--</td>
@@ -1687,7 +1763,7 @@
                         <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </span>
-                    RvabtaBC79599
+                    DL785422
                   </span>
                 </td>
                 <td>--</td>
@@ -1713,7 +1789,7 @@
                         <path d="M3 11V3H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </span>
-                    RvabtaBC795B8
+                    DL785423
                   </span>
                 </td>
                 <td>--</td>
@@ -1987,66 +2063,68 @@
         </div>
       </div>
       
-      <table class="assign-deal-table" id="opportunityTable">
-        <thead>
-          <tr>
-            <th>Opportunities</th>
-            <th>Opportunity status</th>
-            <th>Start date</th>
-            <th>End date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-opportunity-id="1">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-          <tr data-opportunity-id="2">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-          <tr data-opportunity-id="3">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-          <tr data-opportunity-id="4">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-          <tr data-opportunity-id="5">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-          <tr data-opportunity-id="6">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-          <tr data-opportunity-id="7">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-          <tr data-opportunity-id="8">
-            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>Jul 12, 2024</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="assign-deal-table-wrapper">
+        <table class="assign-deal-table" id="opportunityTable">
+          <thead>
+            <tr>
+              <th>Opportunities</th>
+              <th>Opportunity status</th>
+              <th>Start date</th>
+              <th>End date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-opportunity-id="1">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+            <tr data-opportunity-id="2">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+            <tr data-opportunity-id="3">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+            <tr data-opportunity-id="4">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+            <tr data-opportunity-id="5">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+            <tr data-opportunity-id="6">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+            <tr data-opportunity-id="7">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+            <tr data-opportunity-id="8">
+              <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>Jul 12, 2024</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     
     <div class="deals-panel-content assign-deal-content" id="assignDealStep2" style="display: none;">
@@ -2070,36 +2148,38 @@
         </div>
       </div>
       
-      <table class="assign-deal-table" id="mediaPlanTable">
-        <thead>
-          <tr>
-            <th>Media plan name</th>
-            <th>Status</th>
-            <th>Media plan ID</th>
-            <th>Total spend</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-media-plan-id="1">
-            <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 1</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>$100,000.00</td>
-          </tr>
-          <tr data-media-plan-id="2">
-            <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 2</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>$100,000.00</td>
-          </tr>
-          <tr data-media-plan-id="3">
-            <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 3</span></td>
-            <td><span class="tag">Tag</span></td>
-            <td>Jul 8, 2024</td>
-            <td>$100,000.00</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="assign-deal-table-wrapper">
+        <table class="assign-deal-table" id="mediaPlanTable">
+          <thead>
+            <tr>
+              <th>Media plan name</th>
+              <th>Status</th>
+              <th>Media plan ID</th>
+              <th>Total spend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-media-plan-id="1">
+              <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 1</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>$100,000.00</td>
+            </tr>
+            <tr data-media-plan-id="2">
+              <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 2</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>$100,000.00</td>
+            </tr>
+            <tr data-media-plan-id="3">
+              <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 3</span></td>
+              <td><span class="tag">Tag</span></td>
+              <td>Jul 8, 2024</td>
+              <td>$100,000.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     
     <div class="deals-panel-content assign-deal-content" id="assignDealStep3" style="display: none;">
@@ -2123,40 +2203,42 @@
         </div>
       </div>
       
-      <table class="assign-deal-table" id="assignFlightsTable">
-        <thead>
-          <tr>
-            <th style="width: 30px;"></th>
-            <th>Flights</th>
-            <th>Deal id</th>
-            <th>Start date</th>
-            <th>End date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-assign-flight-id="1" data-deal-id="RvabtaBC795BC">
-            <td><input type="checkbox" class="assign-flight-checkbox" /></td>
-            <td><span class="link-text">33_TFL0288821_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353388</span></td>
-            <td>RvabtaBC795BC</td>
-            <td>Jan 1, 2026</td>
-            <td>Jan 31, 2026</td>
-          </tr>
-          <tr data-assign-flight-id="2" data-deal-id="TofeeaJX014XW">
-            <td><input type="checkbox" class="assign-flight-checkbox" /></td>
-            <td><span class="link-text">Video 111_33_TFL0288821_Beeswax_</span></td>
-            <td>TofeeaJX014XW</td>
-            <td>Jan 1, 2026</td>
-            <td>Jan 31, 2026</td>
-          </tr>
-          <tr data-assign-flight-id="3" data-deal-id="JzoqviQL687WO">
-            <td><input type="checkbox" class="assign-flight-checkbox" /></td>
-            <td><span class="link-text">TFL02B8821_Beeswax_Video_Targeted Base_Spanish126</span></td>
-            <td>JzoqviQL687WO</td>
-            <td>Jan 1, 2026</td>
-            <td>Jan 31, 2026</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="assign-deal-table-wrapper">
+        <table class="assign-deal-table" id="assignFlightsTable">
+          <thead>
+            <tr>
+              <th style="width: 30px;"></th>
+              <th>Flights</th>
+              <th>Deal id</th>
+              <th>Start date</th>
+              <th>End date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-assign-flight-id="1" data-deal-id="DL785420">
+              <td><input type="checkbox" class="assign-flight-checkbox" /></td>
+              <td><span class="link-text">33_TFL0288821_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353388</span></td>
+              <td>DL785420</td>
+              <td>Jan 1, 2026</td>
+              <td>Jan 31, 2026</td>
+            </tr>
+            <tr data-assign-flight-id="2" data-deal-id="DL785421">
+              <td><input type="checkbox" class="assign-flight-checkbox" /></td>
+              <td><span class="link-text">Video 111_33_TFL0288821_Beeswax_</span></td>
+              <td>DL785421</td>
+              <td>Jan 1, 2026</td>
+              <td>Jan 31, 2026</td>
+            </tr>
+            <tr data-assign-flight-id="3" data-deal-id="DL785422">
+              <td><input type="checkbox" class="assign-flight-checkbox" /></td>
+              <td><span class="link-text">TFL02B8821_Beeswax_Video_Targeted Base_Spanish126</span></td>
+              <td>DL785422</td>
+              <td>Jan 1, 2026</td>
+              <td>Jan 31, 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="deals-panel-footer" id="normalFooter">
