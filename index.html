@@ -718,6 +718,110 @@
       margin-bottom: 16px;
     }
 
+    .deals-section-subtitle {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--text-secondary);
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    /* Edit Mode */
+    .edit-mode-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .edit-mode-back {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+    }
+
+    .edit-mode-back:hover {
+      color: var(--purple-primary);
+    }
+
+    .edit-mode-back svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .edit-mode-selection-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-subtle);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .edit-mode-selection-bar__count {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .edit-mode-selection-bar__actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .edit-mode-btn-cancel {
+      padding: 8px 22px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 24px;
+      color: var(--purple-primary);
+      background: #fff;
+      border: 1px solid var(--purple-primary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .edit-mode-btn-cancel:hover {
+      background: rgba(84, 7, 170, 0.04);
+    }
+
+    .edit-mode-btn-confirm {
+      padding: 8px 22px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 24px;
+      color: #fff;
+      background: var(--purple-primary);
+      border: 1px solid var(--purple-primary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .edit-mode-btn-confirm:hover {
+      background: var(--purple-dark);
+    }
+
+    .deals-panel-content.edit-mode .grouped-flights-section,
+    .deals-panel-content.edit-mode .ungrouped-flights-section {
+      display: block !important;
+    }
+
+    .deals-panel-content.edit-mode #dealsSelectionBar,
+    .deals-panel-content.edit-mode #groupSelectionBar {
+      display: none !important;
+    }
+
+    /* Edit mode table - light blue background for all rows */
+    #editModeGroupedTableBody tr td,
+    #editModeUngroupedTableBody tr td {
+      background: #e3f2fd;
+    }
+
     .deals-table {
       width: 700px !important;
       max-width: 700px !important;
@@ -793,6 +897,11 @@
       width: 18px;
       height: 18px;
       cursor: pointer;
+    }
+
+    .deals-table input[type="checkbox"]:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
     }
 
     .deals-add-link {
@@ -873,6 +982,78 @@
 
     .deals-selection-bar__btn:hover {
       background: rgba(84, 7, 170, 0.04);
+    }
+
+    .deals-selection-bar__btn:disabled {
+      color: var(--text-secondary);
+      border-color: var(--border-subtle);
+      background: #fff;
+      cursor: not-allowed;
+      gap: 6px;
+    }
+
+    .deals-selection-bar__btn:disabled:hover {
+      background: #fff;
+    }
+
+    .deals-selection-bar__btn .btn-icon {
+      display: none;
+      width: 16px;
+      height: 16px;
+      color: var(--text-secondary);
+    }
+
+    .deals-selection-bar__btn:disabled .btn-icon {
+      display: inline-flex;
+    }
+
+    /* Tooltip */
+    .deals-selection-bar__btn-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .deals-selection-bar__tooltip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 0;
+      width: 280px;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--text-primary);
+      z-index: 100;
+    }
+
+    .deals-selection-bar__tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 24px;
+      border: 8px solid transparent;
+      border-top-color: #fff;
+    }
+
+    .deals-selection-bar__tooltip::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 23px;
+      border: 9px solid transparent;
+      border-top-color: var(--border-subtle);
+    }
+
+    .deals-selection-bar__btn-wrapper:hover .deals-selection-bar__tooltip:not([style*="display: none"]) {
+      display: block;
+    }
+
+    .deals-selection-bar__tooltip[style*="display: none"] {
+      display: none !important;
     }
 
     /* Success Message */
@@ -1350,7 +1531,7 @@
 
   <!-- Deals Grouping Panel -->
   <div class="deals-panel" id="dealsPanel">
-    <div class="deals-panel-header">
+    <div class="deals-panel-header" id="normalModeHeader">
       <h2 class="deals-panel-title">Deals Grouping</h2>
       <button class="deals-panel-close" id="closePanelBtn" aria-label="Close">
         <svg viewBox="0 0 24 24" fill="none">
@@ -1358,8 +1539,24 @@
         </svg>
       </button>
     </div>
+    
+    <div class="deals-panel-header" id="editModeHeader" style="display: none;">
+      <div class="edit-mode-header">
+        <button class="edit-mode-back" id="editModeBackBtn" aria-label="Back">
+          <svg viewBox="0 0 20 20" fill="none">
+            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h2 class="deals-panel-title">Edit Deal group</h2>
+      </div>
+      <button class="deals-panel-close" id="closePanelBtnEdit" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
 
-    <div class="deals-panel-content">
+    <div class="deals-panel-content" id="normalModeContent">
       <p class="deals-panel-description">Select flights to group for shared Deal ID</p>
 
       <!-- Success Message -->
@@ -1379,6 +1576,13 @@
       <!-- Grouped Flights Section -->
       <div class="grouped-flights-section" id="groupedFlightsSection">
         <h3 class="deals-section-title">Grouped Flights</h3>
+        
+        <!-- Group Selection Bar -->
+        <div class="deals-selection-bar" id="groupSelectionBar">
+          <span class="deals-selection-bar__count">Selected: <span id="groupSelectedCount">0</span></span>
+          <button class="deals-selection-bar__btn" id="editDealGroupBtn">Edit Deal group</button>
+        </div>
+        
         <table class="deals-table" id="groupedTable">
           <thead>
             <tr>
@@ -1401,7 +1605,18 @@
       <!-- Selection Bar -->
       <div class="deals-selection-bar" id="dealsSelectionBar">
         <span class="deals-selection-bar__count">Selected: <span id="dealsSelectedCount">0</span></span>
-        <button class="deals-selection-bar__btn" id="createDealGroupBtn">Create Deal Group</button>
+        <div class="deals-selection-bar__btn-wrapper">
+          <div class="deals-selection-bar__tooltip" id="overlapTooltip">
+            Flights cannot be grouped because there are dates overlap: Please adjust the date ranges so they do not intersect.
+          </div>
+          <button class="deals-selection-bar__btn" id="createDealGroupBtn">
+            Create Deal Group
+            <svg class="btn-icon" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 7V11M8 5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <table class="deals-table" id="dealsTable">
@@ -1419,40 +1634,96 @@
             <td><input type="checkbox" /></td>
             <td><a href="#" class="flight-name">TFL0282295_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0355584</a></td>
             <td>--</td>
-            <td>Jan 1, 2026</td>
-            <td>Jan 31, 2026</td>
+            <td>Jan 5, 2026</td>
+            <td>Jan 25, 2026</td>
           </tr>
           <tr data-flight-id="2">
             <td><input type="checkbox" /></td>
             <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353345</a></td>
             <td>--</td>
-            <td>Mar 1, 2026</td>
-            <td>Mar 15, 2026</td>
+            <td>Feb 2, 2026</td>
+            <td>Feb 22, 2026</td>
           </tr>
           <tr data-flight-id="3">
             <td><input type="checkbox" /></td>
             <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353377</a></td>
             <td>--</td>
-            <td>Jun 1, 2026</td>
-            <td>Jun 30, 2026</td>
+            <td>Mar 2, 2026</td>
+            <td>Mar 16, 2026</td>
           </tr>
           <tr data-flight-id="4">
             <td><input type="checkbox" /></td>
             <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353355</a></td>
             <td>--</td>
-            <td>Aug 1, 2026</td>
-            <td>Aug 15, 2026</td>
+            <td>Mar 23, 2026</td>
+            <td>Apr 6, 2026</td>
           </tr>
           <tr data-flight-id="5">
             <td><input type="checkbox" /></td>
             <td><a href="#" class="flight-name">TFL0283345_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353366</a></td>
             <td>--</td>
-            <td>Sep 1, 2026</td>
-            <td>Sep 15, 2026</td>
+            <td>Mar 23, 2026</td>
+            <td>Apr 12, 2026</td>
           </tr>
         </tbody>
       </table>
 
+      <a href="#" class="deals-add-link">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Assign deal from another opportunity
+      </a>
+    </div>
+
+    <!-- Edit Mode Content -->
+    <div class="deals-panel-content" id="editModeContent" style="display: none;">
+      <!-- Edit Mode Grouped Flights -->
+      <h3 class="deals-section-title">Grouped Flights</h3>
+      <p class="deals-section-subtitle">Unselect flights for removing from the group</p>
+      
+      <div class="edit-mode-selection-bar" id="editModeSelectionBar">
+        <span class="edit-mode-selection-bar__count">Selected: <span id="editModeSelectedCount">0</span></span>
+        <div class="edit-mode-selection-bar__actions">
+          <button class="edit-mode-btn-cancel" id="editModeCancelBtn">Cancel</button>
+          <button class="edit-mode-btn-confirm" id="editModeConfirmBtn">Confirm edits</button>
+        </div>
+      </div>
+      
+      <table class="deals-table" id="editModeGroupedTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Flights</th>
+            <th>Deal id</th>
+            <th>Start date</th>
+            <th>End date</th>
+          </tr>
+        </thead>
+        <tbody id="editModeGroupedTableBody">
+          <!-- Group and its flights will be inserted here -->
+        </tbody>
+      </table>
+      
+      <!-- Edit Mode Ungrouped Flights -->
+      <h3 class="deals-section-title" style="margin-top: 32px;">Ungrouped Flights</h3>
+      <p class="deals-section-subtitle">Select flights for adding to the group</p>
+      
+      <table class="deals-table" id="editModeUngroupedTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Flights</th>
+            <th>Deal id</th>
+            <th>Start date</th>
+            <th>End date</th>
+          </tr>
+        </thead>
+        <tbody id="editModeUngroupedTableBody">
+          <!-- Ungrouped flights will be inserted here -->
+        </tbody>
+      </table>
+      
       <a href="#" class="deals-add-link">
         <svg viewBox="0 0 16 16" fill="none">
           <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1513,6 +1784,16 @@
         dealsOverlay.classList.remove('active');
         dealsPanel.classList.remove('active');
         document.body.style.overflow = '';
+        // Hide group selection bar and uncheck group checkboxes
+        groupSelectionBar.classList.remove('active');
+        const groupCheckboxes = groupedTableBody.querySelectorAll('.group-row input[type="checkbox"]');
+        groupCheckboxes.forEach(cb => cb.checked = false);
+        // Re-enable and uncheck child checkboxes
+        const childCheckboxes = groupedTableBody.querySelectorAll('.group-child input[type="checkbox"]');
+        childCheckboxes.forEach(cb => {
+          cb.checked = false;
+          cb.disabled = false;
+        });
       }
 
       // Event listeners for opening/closing the panel
@@ -1541,15 +1822,115 @@
       const createDealGroupBtn = document.getElementById('createDealGroupBtn');
       const dealsSuccessMessage = document.getElementById('dealsSuccessMessage');
       const closeSuccessMessage = document.getElementById('closeSuccessMessage');
+      const groupSelectionBar = document.getElementById('groupSelectionBar');
+      const groupSelectedCount = document.getElementById('groupSelectedCount');
+      const editDealGroupBtn = document.getElementById('editDealGroupBtn');
+      
+      // Edit mode elements
+      const normalModeHeader = document.getElementById('normalModeHeader');
+      const editModeHeader = document.getElementById('editModeHeader');
+      const normalModeContent = document.getElementById('normalModeContent');
+      const editModeContent = document.getElementById('editModeContent');
+      const editModeBackBtn = document.getElementById('editModeBackBtn');
+      const closePanelBtnEdit = document.getElementById('closePanelBtnEdit');
+      const editModeGroupedTableBody = document.getElementById('editModeGroupedTableBody');
+      const editModeUngroupedTableBody = document.getElementById('editModeUngroupedTableBody');
+      const editModeSelectedCount = document.getElementById('editModeSelectedCount');
+      const editModeCancelBtn = document.getElementById('editModeCancelBtn');
+      const editModeConfirmBtn = document.getElementById('editModeConfirmBtn');
 
       let groupCounter = 0;
+      let currentEditingGroupId = null;
+      let originalGroupState = null;
+
+      // Update group selection bar when group checkboxes change
+      function updateGroupSelectionBar() {
+        const groupCheckboxes = groupedTableBody.querySelectorAll('.group-row input[type="checkbox"]:checked');
+        const checkedCount = groupCheckboxes.length;
+        
+        if (checkedCount > 0) {
+          groupSelectionBar.classList.add('active');
+          groupSelectedCount.textContent = checkedCount;
+        } else {
+          groupSelectionBar.classList.remove('active');
+        }
+      }
+
+      // Handle group checkbox change - check/disable child flights
+      function handleGroupCheckboxChange(event) {
+        const checkbox = event.target;
+        const groupRow = checkbox.closest('.group-row');
+        const groupId = groupRow.dataset.groupId;
+        const childRows = groupedTableBody.querySelectorAll(`tr[data-parent-group="${groupId}"]`);
+        
+        childRows.forEach(childRow => {
+          const childCheckbox = childRow.querySelector('input[type="checkbox"]');
+          if (childCheckbox) {
+            if (checkbox.checked) {
+              childCheckbox.checked = true;
+              childCheckbox.disabled = true;
+            } else {
+              childCheckbox.checked = false;
+              childCheckbox.disabled = false;
+            }
+          }
+        });
+        
+        updateGroupSelectionBar();
+      }
+
+      // Attach listeners to group checkboxes
+      function attachGroupCheckboxListeners() {
+        const groupCheckboxes = groupedTableBody.querySelectorAll('.group-row input[type="checkbox"]');
+        groupCheckboxes.forEach(checkbox => {
+          checkbox.removeEventListener('change', handleGroupCheckboxChange);
+          checkbox.addEventListener('change', handleGroupCheckboxChange);
+        });
+      }
+
+      function checkDatesOverlap(rows) {
+        const dateRanges = [];
+        rows.forEach(row => {
+          const startDateText = row.cells[3].textContent;
+          const endDateText = row.cells[4].textContent;
+          const startDate = new Date(startDateText);
+          const endDate = new Date(endDateText);
+          dateRanges.push({ start: startDate, end: endDate });
+        });
+        
+        // Check for overlaps
+        for (let i = 0; i < dateRanges.length; i++) {
+          for (let j = i + 1; j < dateRanges.length; j++) {
+            const a = dateRanges[i];
+            const b = dateRanges[j];
+            // Overlap if one starts before the other ends
+            if (a.start <= b.end && b.start <= a.end) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
 
       function updateDealsSelectionBar() {
-        const checkedCount = ungroupedTableBody.querySelectorAll('input[type="checkbox"]:checked').length;
+        const checkedRows = ungroupedTableBody.querySelectorAll('tr:has(input[type="checkbox"]:checked)');
+        const checkedCount = checkedRows.length;
+        const overlapTooltip = document.getElementById('overlapTooltip');
         
         if (checkedCount > 0) {
           dealsSelectionBar.classList.add('active');
           dealsSelectedCount.textContent = checkedCount;
+          
+          // Check for date overlaps
+          const hasOverlap = checkDatesOverlap(checkedRows);
+          
+          if (hasOverlap) {
+            createDealGroupBtn.disabled = true;
+            overlapTooltip.style.display = '';
+          } else {
+            createDealGroupBtn.disabled = false;
+            overlapTooltip.style.display = 'none';
+          }
         } else {
           dealsSelectionBar.classList.remove('active');
         }
@@ -1564,6 +1945,9 @@
       }
 
       function createDealGroup() {
+        // Don't proceed if button is disabled (dates overlap)
+        if (createDealGroupBtn.disabled) return;
+        
         const checkedRows = ungroupedTableBody.querySelectorAll('tr:has(input[type="checkbox"]:checked)');
         if (checkedRows.length === 0) return;
 
@@ -1623,6 +2007,11 @@
         groupedFlightsSection.classList.add('active');
         dealsSuccessMessage.classList.add('active');
         dealsSelectionBar.classList.remove('active');
+        
+        // Auto-hide success message after 15 seconds
+        setTimeout(function() {
+          dealsSuccessMessage.classList.remove('active');
+        }, 15000);
 
         // Update checkbox listeners for remaining rows
         attachCheckboxListeners();
@@ -1636,6 +2025,9 @@
             child.classList.toggle('hidden');
           });
         });
+
+        // Attach listeners to group checkboxes
+        attachGroupCheckboxListeners();
       }
 
       // Event listeners
@@ -1643,10 +2035,276 @@
         createDealGroupBtn.addEventListener('click', createDealGroup);
       }
 
+      if (editDealGroupBtn) {
+        editDealGroupBtn.addEventListener('click', enterEditMode);
+      }
+
       if (closeSuccessMessage) {
         closeSuccessMessage.addEventListener('click', function() {
           dealsSuccessMessage.classList.remove('active');
         });
+      }
+
+      // Edit mode functions
+      function enterEditMode() {
+        // Get the selected group
+        const selectedGroupCheckbox = groupedTableBody.querySelector('.group-row input[type="checkbox"]:checked');
+        if (!selectedGroupCheckbox) return;
+        
+        const groupRow = selectedGroupCheckbox.closest('.group-row');
+        currentEditingGroupId = groupRow.dataset.groupId;
+        
+        // Save original state for cancel
+        originalGroupState = {
+          groupedFlights: [],
+          ungroupedFlights: []
+        };
+        
+        // Clear edit mode tables
+        editModeGroupedTableBody.innerHTML = '';
+        editModeUngroupedTableBody.innerHTML = '';
+        
+        // Copy group row to edit mode (without toggle button)
+        const groupRowClone = groupRow.cloneNode(true);
+        const groupCell = groupRowClone.querySelector('.group-cell');
+        if (groupCell) {
+          const toggle = groupCell.querySelector('.group-toggle');
+          if (toggle) toggle.remove();
+        }
+        const groupCheckbox = groupRowClone.querySelector('input[type="checkbox"]');
+        groupCheckbox.checked = true;
+        groupCheckbox.disabled = false;
+        editModeGroupedTableBody.appendChild(groupRowClone);
+        
+        // Copy child flights of this group (checked by default)
+        const childRows = groupedTableBody.querySelectorAll(`tr[data-parent-group="${currentEditingGroupId}"]`);
+        childRows.forEach(row => {
+          const rowClone = row.cloneNode(true);
+          rowClone.classList.remove('group-child', 'hidden');
+          const checkbox = rowClone.querySelector('input[type="checkbox"]');
+          checkbox.checked = true;
+          checkbox.disabled = false;
+          editModeGroupedTableBody.appendChild(rowClone);
+          originalGroupState.groupedFlights.push(row.dataset.flightId);
+        });
+        
+        // Copy ungrouped flights (unchecked by default)
+        const ungroupedRows = ungroupedTableBody.querySelectorAll('tr');
+        ungroupedRows.forEach(row => {
+          const rowClone = row.cloneNode(true);
+          const checkbox = rowClone.querySelector('input[type="checkbox"]');
+          checkbox.checked = false;
+          checkbox.disabled = false;
+          editModeUngroupedTableBody.appendChild(rowClone);
+          originalGroupState.ungroupedFlights.push(row.dataset.flightId);
+        });
+        
+        // Update selection count
+        updateEditModeSelectionCount();
+        
+        // Attach edit mode checkbox listeners
+        attachEditModeCheckboxListeners();
+        
+        // Switch to edit mode view
+        normalModeHeader.style.display = 'none';
+        editModeHeader.style.display = 'flex';
+        normalModeContent.style.display = 'none';
+        editModeContent.style.display = 'block';
+        
+        // Reset group selection in normal mode
+        groupSelectionBar.classList.remove('active');
+        const groupCheckboxes = groupedTableBody.querySelectorAll('.group-row input[type="checkbox"]');
+        groupCheckboxes.forEach(cb => {
+          cb.checked = false;
+          const gRow = cb.closest('.group-row');
+          const gId = gRow.dataset.groupId;
+          const children = groupedTableBody.querySelectorAll(`tr[data-parent-group="${gId}"]`);
+          children.forEach(child => {
+            const cCb = child.querySelector('input[type="checkbox"]');
+            if (cCb) {
+              cCb.checked = false;
+              cCb.disabled = false;
+            }
+          });
+        });
+      }
+      
+      function exitEditMode() {
+        normalModeHeader.style.display = 'flex';
+        editModeHeader.style.display = 'none';
+        normalModeContent.style.display = 'block';
+        editModeContent.style.display = 'none';
+        currentEditingGroupId = null;
+        originalGroupState = null;
+      }
+      
+      function updateEditModeSelectionCount() {
+        const checkedCount = editModeGroupedTableBody.querySelectorAll('tr:not(.group-row) input[type="checkbox"]:checked').length;
+        editModeSelectedCount.textContent = checkedCount;
+      }
+      
+      function attachEditModeCheckboxListeners() {
+        // Grouped flights - uncheck moves to ungrouped
+        const groupedCheckboxes = editModeGroupedTableBody.querySelectorAll('tr:not(.group-row) input[type="checkbox"]');
+        groupedCheckboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+            if (!this.checked) {
+              const row = this.closest('tr');
+              row.querySelector('input[type="checkbox"]').checked = false;
+              editModeUngroupedTableBody.appendChild(row);
+              attachEditModeCheckboxListeners();
+            }
+            updateEditModeSelectionCount();
+          });
+        });
+        
+        // Ungrouped flights - check moves to grouped
+        const ungroupedCheckboxes = editModeUngroupedTableBody.querySelectorAll('input[type="checkbox"]');
+        ungroupedCheckboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+            if (this.checked) {
+              const row = this.closest('tr');
+              row.querySelector('input[type="checkbox"]').checked = true;
+              // Insert after the group row
+              const groupRow = editModeGroupedTableBody.querySelector('.group-row');
+              if (groupRow && groupRow.nextSibling) {
+                editModeGroupedTableBody.insertBefore(row, groupRow.nextSibling);
+              } else {
+                editModeGroupedTableBody.appendChild(row);
+              }
+              attachEditModeCheckboxListeners();
+            }
+            updateEditModeSelectionCount();
+          });
+        });
+      }
+      
+      function cancelEditMode() {
+        exitEditMode();
+      }
+      
+      function confirmEditMode() {
+        // Get flights currently in edit mode grouped table
+        const newGroupedFlightIds = [];
+        const editGroupedRows = editModeGroupedTableBody.querySelectorAll('tr:not(.group-row)');
+        editGroupedRows.forEach(row => {
+          newGroupedFlightIds.push(row.dataset.flightId);
+        });
+        
+        // Get flights currently in edit mode ungrouped table
+        const newUngroupedFlightIds = [];
+        const editUngroupedRows = editModeUngroupedTableBody.querySelectorAll('tr');
+        editUngroupedRows.forEach(row => {
+          newUngroupedFlightIds.push(row.dataset.flightId);
+        });
+        
+        // Update the actual tables
+        // Move flights from grouped to ungrouped
+        originalGroupState.groupedFlights.forEach(flightId => {
+          if (newUngroupedFlightIds.includes(flightId)) {
+            const row = groupedTableBody.querySelector(`tr[data-flight-id="${flightId}"]`);
+            if (row) {
+              row.classList.remove('group-child');
+              row.removeAttribute('data-parent-group');
+              const cb = row.querySelector('input[type="checkbox"]');
+              if (cb) {
+                cb.checked = false;
+                cb.disabled = false;
+              }
+              ungroupedTableBody.appendChild(row);
+            }
+          }
+        });
+        
+        // Move flights from ungrouped to grouped
+        originalGroupState.ungroupedFlights.forEach(flightId => {
+          if (newGroupedFlightIds.includes(flightId)) {
+            const row = ungroupedTableBody.querySelector(`tr[data-flight-id="${flightId}"]`);
+            if (row) {
+              row.classList.add('group-child');
+              row.dataset.parentGroup = currentEditingGroupId;
+              const cb = row.querySelector('input[type="checkbox"]');
+              if (cb) {
+                cb.checked = false;
+                cb.disabled = false;
+              }
+              // Find the group row and insert after it and its children
+              const groupRow = groupedTableBody.querySelector(`tr[data-group-id="${currentEditingGroupId}"]`);
+              const lastChild = groupedTableBody.querySelector(`tr[data-parent-group="${currentEditingGroupId}"]:last-of-type`);
+              if (lastChild) {
+                lastChild.after(row);
+              } else if (groupRow) {
+                groupRow.after(row);
+              } else {
+                groupedTableBody.appendChild(row);
+              }
+            }
+          }
+        });
+        
+        // Update group dates based on new flights
+        updateGroupDates(currentEditingGroupId);
+        
+        // Reattach listeners
+        attachCheckboxListeners();
+        attachGroupCheckboxListeners();
+        
+        exitEditMode();
+      }
+      
+      function updateGroupDates(groupId) {
+        const groupRow = groupedTableBody.querySelector(`tr[data-group-id="${groupId}"]`);
+        const childRows = groupedTableBody.querySelectorAll(`tr[data-parent-group="${groupId}"]`);
+        
+        if (childRows.length === 0) {
+          // No flights left, remove the group
+          groupRow.remove();
+          if (groupedTableBody.children.length === 0) {
+            groupedFlightsSection.classList.remove('active');
+          }
+          return;
+        }
+        
+        let minStartDate = null;
+        let maxEndDate = null;
+        
+        childRows.forEach(row => {
+          const startDateText = row.cells[3].textContent;
+          const endDateText = row.cells[4].textContent;
+          const startDate = new Date(startDateText);
+          const endDate = new Date(endDateText);
+          
+          if (!minStartDate || startDate < minStartDate) minStartDate = startDate;
+          if (!maxEndDate || endDate > maxEndDate) maxEndDate = endDate;
+        });
+        
+        const formatDate = (date) => {
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+        };
+        
+        groupRow.cells[3].textContent = formatDate(minStartDate);
+        groupRow.cells[4].textContent = formatDate(maxEndDate);
+      }
+      
+      // Edit mode event listeners
+      if (editModeBackBtn) {
+        editModeBackBtn.addEventListener('click', cancelEditMode);
+      }
+      
+      if (closePanelBtnEdit) {
+        closePanelBtnEdit.addEventListener('click', function() {
+          exitEditMode();
+          closeDealsPanel();
+        });
+      }
+      
+      if (editModeCancelBtn) {
+        editModeCancelBtn.addEventListener('click', cancelEditMode);
+      }
+      
+      if (editModeConfirmBtn) {
+        editModeConfirmBtn.addEventListener('click', confirmEditMode);
       }
 
       // Initialize checkbox listeners
