@@ -21,6 +21,7 @@
       --card-bg: #ffffff;
       --status-error: #d53e5a;
       --purple-primary: #5407aa;
+      --purple-dark: #430688;
       --purple-accordion: #5407aa;
       --avatar-bg: #bdbdbd;
       --grey-500: #9b9c99;
@@ -800,10 +801,12 @@
       border: 1px solid var(--purple-primary);
       border-radius: var(--radius-sm);
       cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .edit-mode-btn-confirm:hover {
       background: var(--purple-dark);
+      border-color: var(--purple-dark);
     }
 
     .deals-panel-content.edit-mode .grouped-flights-section,
@@ -927,6 +930,16 @@
       text-decoration: none;
     }
 
+    .deals-add-link.disabled {
+      color: var(--text-secondary);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .deals-add-link.disabled:hover {
+      background: transparent;
+    }
+
     .deals-add-link svg {
       width: 16px;
       height: 16px;
@@ -938,6 +951,7 @@
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: flex-end;
+      gap: 16px;
     }
 
     /* Deals Selection Bar */
@@ -1054,6 +1068,198 @@
 
     .deals-selection-bar__tooltip[style*="display: none"] {
       display: none !important;
+    }
+
+    /* Assign Deal Wizard */
+    .assign-deal-content {
+      display: none;
+    }
+
+    .assign-deal-content.active {
+      display: block;
+    }
+
+    .assign-deal-subtitle {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .assign-deal-description {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .assign-deal-search {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .assign-deal-search__input {
+      flex: 1;
+      padding: 10px 12px 10px 36px;
+      border: 1px solid var(--border-input);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='7' cy='7' r='5.5' stroke='%23665d71' stroke-width='1.5'/%3E%3Cpath d='M11 11L14 14' stroke='%23665d71' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") 12px center no-repeat;
+    }
+
+    .assign-deal-search__input:focus {
+      outline: none;
+      border-color: var(--purple-primary);
+    }
+
+    .assign-deal-search__filter-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-input);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      cursor: pointer;
+      color: var(--purple-primary);
+    }
+
+    .assign-deal-search__filter-btn:hover {
+      border-color: var(--purple-primary);
+    }
+
+    .assign-deal-search__filter-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .assign-deal-search__type {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .assign-deal-search__type-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1;
+    }
+
+    .assign-deal-search__type-select {
+      padding: 8px 32px 8px 12px;
+      border: 1px solid var(--border-input);
+      border-radius: var(--radius-sm);
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23665d71' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 10px center no-repeat;
+      font-size: 14px;
+      cursor: pointer;
+      appearance: none;
+      min-width: 100px;
+    }
+
+    .assign-deal-search__type-select:focus {
+      outline: none;
+      border-color: var(--purple-primary);
+    }
+
+    .assign-deal-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .assign-deal-table th {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 12px 8px;
+      text-align: left;
+      border-bottom: 1px solid var(--grey-500);
+    }
+
+    .assign-deal-table td {
+      font-size: 14px;
+      color: var(--text-primary);
+      padding: 12px 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    .assign-deal-table tr {
+      cursor: pointer;
+    }
+
+    .assign-deal-table tr:hover td {
+      background: rgba(84, 7, 170, 0.04);
+    }
+
+    .assign-deal-table tr.selected td {
+      background: #e3f2fd;
+    }
+
+    .assign-deal-table .link-text {
+      color: var(--link-blue);
+    }
+
+    .assign-deal-table .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--purple-primary);
+      color: #fff;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+
+    .assign-deal-table .deal-id-cell {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .assign-deal-table .deal-id-cell svg {
+      width: 14px;
+      height: 14px;
+      color: var(--text-secondary);
+    }
+
+    .assign-deal-info-bar {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      background: #e3f2fd;
+      padding: 12px 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .assign-deal-info-bar.active {
+      display: flex;
+    }
+
+    .assign-deal-info-bar svg {
+      width: 20px;
+      height: 20px;
+      color: var(--link-blue);
+      flex-shrink: 0;
+    }
+
+    .assign-deal-info-bar__title {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .assign-deal-info-bar__text {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .assign-deal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-subtle);
     }
 
     /* Success Message */
@@ -1555,6 +1761,22 @@
         </svg>
       </button>
     </div>
+    
+    <div class="deals-panel-header" id="assignDealHeader" style="display: none;">
+      <div class="edit-mode-header">
+        <button class="edit-mode-back" id="assignDealBackBtn" aria-label="Back">
+          <svg viewBox="0 0 20 20" fill="none">
+            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h2 class="deals-panel-title">Assign deal from another opportunity</h2>
+      </div>
+      <button class="deals-panel-close" id="closePanelBtnAssign" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
 
     <div class="deals-panel-content" id="normalModeContent">
       <p class="deals-panel-description">Select flights to group for shared Deal ID</p>
@@ -1668,7 +1890,7 @@
         </tbody>
       </table>
 
-      <a href="#" class="deals-add-link">
+      <a href="#" class="deals-add-link disabled" id="assignDealLink">
         <svg viewBox="0 0 16 16" fill="none">
           <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
@@ -1724,7 +1946,7 @@
         </tbody>
       </table>
       
-      <a href="#" class="deals-add-link">
+      <a href="#" class="deals-add-link" id="assignDealLinkEditMode">
         <svg viewBox="0 0 16 16" fill="none">
           <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
@@ -1732,8 +1954,218 @@
       </a>
     </div>
 
-    <div class="deals-panel-footer">
+    <!-- Assign Deal Wizard Content -->
+    <div class="deals-panel-content assign-deal-content" id="assignDealStep1" style="display: none;">
+      <h3 class="assign-deal-subtitle">Select opportunity</h3>
+      <p class="assign-deal-description">Select opportunity and media plan that you would like to clone Deal ID from.</p>
+      
+      <div class="assign-deal-search">
+        <input type="text" class="assign-deal-search__input" placeholder="Search">
+        <button class="assign-deal-search__filter-btn">
+          <svg viewBox="0 0 18 18" fill="none">
+            <path d="M2 4H16M4 9H14M7 14H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="assign-deal-search__type">
+          <span class="assign-deal-search__type-label">Type</span>
+          <select class="assign-deal-search__type-select">
+            <option>Video</option>
+            <option>Display</option>
+            <option>Audio</option>
+          </select>
+        </div>
+      </div>
+      
+      <table class="assign-deal-table" id="opportunityTable">
+        <thead>
+          <tr>
+            <th>Opportunities</th>
+            <th>Opportunity status</th>
+            <th>Start date</th>
+            <th>End date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-opportunity-id="1">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+          <tr data-opportunity-id="2">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+          <tr data-opportunity-id="3">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+          <tr data-opportunity-id="4">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+          <tr data-opportunity-id="5">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+          <tr data-opportunity-id="6">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+          <tr data-opportunity-id="7">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+          <tr data-opportunity-id="8">
+            <td><span class="link-text">Client Direct | Chase Consumer Banking | PG | Consumer Bank BY '24 Upfront Q2'24</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>Jul 12, 2024</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="deals-panel-content assign-deal-content" id="assignDealStep2" style="display: none;">
+      <h3 class="assign-deal-subtitle">Select media plan</h3>
+      <p class="assign-deal-description">Select opportunity and media plan that you would like to clone Deal ID from.</p>
+      
+      <div class="assign-deal-search">
+        <input type="text" class="assign-deal-search__input" placeholder="Search">
+        <button class="assign-deal-search__filter-btn">
+          <svg viewBox="0 0 18 18" fill="none">
+            <path d="M2 4H16M4 9H14M7 14H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="assign-deal-search__type">
+          <span class="assign-deal-search__type-label">Type</span>
+          <select class="assign-deal-search__type-select">
+            <option>Video</option>
+            <option>Display</option>
+            <option>Audio</option>
+          </select>
+        </div>
+      </div>
+      
+      <table class="assign-deal-table" id="mediaPlanTable">
+        <thead>
+          <tr>
+            <th>Media plan name</th>
+            <th>Status</th>
+            <th>Media plan ID</th>
+            <th>Total spend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-media-plan-id="1">
+            <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 1</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>$100,000.00</td>
+          </tr>
+          <tr data-media-plan-id="2">
+            <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 2</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>$100,000.00</td>
+          </tr>
+          <tr data-media-plan-id="3">
+            <td><span class="link-text">Chase Consumer Banking | PG | Media Plan 3</span></td>
+            <td><span class="tag">Tag</span></td>
+            <td>Jul 8, 2024</td>
+            <td>$100,000.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="deals-panel-content assign-deal-content" id="assignDealStep3" style="display: none;">
+      <h3 class="assign-deal-subtitle">Select flights</h3>
+      <p class="assign-deal-description">Select flight that you would like to clone Deal ID from.</p>
+      
+      <div class="assign-deal-search">
+        <input type="text" class="assign-deal-search__input" placeholder="Search">
+        <button class="assign-deal-search__filter-btn">
+          <svg viewBox="0 0 18 18" fill="none">
+            <path d="M2 4H16M4 9H14M7 14H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="assign-deal-search__type">
+          <span class="assign-deal-search__type-label">Type</span>
+          <select class="assign-deal-search__type-select">
+            <option>Video</option>
+            <option>Display</option>
+            <option>Audio</option>
+          </select>
+        </div>
+      </div>
+      
+      <table class="assign-deal-table" id="assignFlightsTable">
+        <thead>
+          <tr>
+            <th style="width: 30px;"></th>
+            <th>Flights</th>
+            <th>Deal id</th>
+            <th>Start date</th>
+            <th>End date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-assign-flight-id="1" data-deal-id="RvabtaBC795BC">
+            <td><input type="checkbox" class="assign-flight-checkbox" /></td>
+            <td><span class="link-text">33_TFL0288821_Beeswax_Video_Targeted Base_Spanish Language_NonGtd_TRC_0353388</span></td>
+            <td>RvabtaBC795BC</td>
+            <td>Jan 1, 2026</td>
+            <td>Jan 31, 2026</td>
+          </tr>
+          <tr data-assign-flight-id="2" data-deal-id="TofeeaJX014XW">
+            <td><input type="checkbox" class="assign-flight-checkbox" /></td>
+            <td><span class="link-text">Video 111_33_TFL0288821_Beeswax_</span></td>
+            <td>TofeeaJX014XW</td>
+            <td>Jan 1, 2026</td>
+            <td>Jan 31, 2026</td>
+          </tr>
+          <tr data-assign-flight-id="3" data-deal-id="JzoqviQL687WO">
+            <td><input type="checkbox" class="assign-flight-checkbox" /></td>
+            <td><span class="link-text">TFL02B8821_Beeswax_Video_Targeted Base_Spanish126</span></td>
+            <td>JzoqviQL687WO</td>
+            <td>Jan 1, 2026</td>
+            <td>Jan 31, 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="deals-panel-footer" id="normalFooter">
       <button class="btn btn--contained btn--medium" id="closePanelBtnFooter">Close</button>
+    </div>
+    
+    <div class="assign-deal-info-bar" id="assignDealInfoBar">
+      <svg viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 9V14M10 6V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="assign-deal-info-bar__title">Assign Deal ID</div>
+        <div class="assign-deal-info-bar__text">You selected flight you would like to assign Deal ID from.</div>
+      </div>
+    </div>
+    
+    <div class="deals-panel-footer" id="assignDealFooter" style="display: none;">
+      <button class="btn btn--outlined btn--medium" id="assignDealCloseBtn">Close</button>
+      <button class="btn btn--contained btn--medium" id="assignDealContinueBtn">Continue</button>
     </div>
   </div>
 
@@ -1778,6 +2210,9 @@
         dealsOverlay.classList.add('active');
         dealsPanel.classList.add('active');
         document.body.style.overflow = 'hidden';
+        // Hide assign deal info bar
+        const infoBar = document.getElementById('assignDealInfoBar');
+        if (infoBar) infoBar.classList.remove('active');
       }
 
       function closeDealsPanel() {
@@ -1794,6 +2229,9 @@
           cb.checked = false;
           cb.disabled = false;
         });
+        // Hide assign deal info bar
+        const infoBar = document.getElementById('assignDealInfoBar');
+        if (infoBar) infoBar.classList.remove('active');
       }
 
       // Event listeners for opening/closing the panel
@@ -1931,8 +2369,15 @@
             createDealGroupBtn.disabled = false;
             overlapTooltip.style.display = 'none';
           }
+          
+          // Enable assign deal link
+          const link = document.getElementById('assignDealLink');
+          if (link) link.classList.remove('disabled');
         } else {
           dealsSelectionBar.classList.remove('active');
+          // Disable assign deal link
+          const link = document.getElementById('assignDealLink');
+          if (link) link.classList.add('disabled');
         }
       }
 
@@ -2165,10 +2610,22 @@
             if (this.checked) {
               const row = this.closest('tr');
               row.querySelector('input[type="checkbox"]').checked = true;
-              // Insert after the group row
+              
+              // Get the group's Deal ID and assign it to the new flight
               const groupRow = editModeGroupedTableBody.querySelector('.group-row');
-              if (groupRow && groupRow.nextSibling) {
-                editModeGroupedTableBody.insertBefore(row, groupRow.nextSibling);
+              if (groupRow) {
+                const groupDealId = groupRow.cells[2] ? groupRow.cells[2].textContent : '--';
+                const flightDealIdCell = row.cells[2];
+                if (flightDealIdCell && groupDealId !== '--') {
+                  flightDealIdCell.textContent = groupDealId;
+                }
+                
+                // Insert after the group row
+                if (groupRow.nextSibling) {
+                  editModeGroupedTableBody.insertBefore(row, groupRow.nextSibling);
+                } else {
+                  editModeGroupedTableBody.appendChild(row);
+                }
               } else {
                 editModeGroupedTableBody.appendChild(row);
               }
@@ -2306,6 +2763,316 @@
       if (editModeConfirmBtn) {
         editModeConfirmBtn.addEventListener('click', confirmEditMode);
       }
+
+      // ============ ASSIGN DEAL WIZARD ============
+      const assignDealLink = document.getElementById('assignDealLink');
+      const assignDealHeader = document.getElementById('assignDealHeader');
+      const assignDealBackBtn = document.getElementById('assignDealBackBtn');
+      const closePanelBtnAssign = document.getElementById('closePanelBtnAssign');
+      const assignDealStep1 = document.getElementById('assignDealStep1');
+      const assignDealStep2 = document.getElementById('assignDealStep2');
+      const assignDealStep3 = document.getElementById('assignDealStep3');
+      const assignDealFooter = document.getElementById('assignDealFooter');
+      const normalFooter = document.getElementById('normalFooter');
+      const assignDealCloseBtn = document.getElementById('assignDealCloseBtn');
+      const assignDealContinueBtn = document.getElementById('assignDealContinueBtn');
+      const assignDealInfoBar = document.getElementById('assignDealInfoBar');
+      const opportunityTable = document.getElementById('opportunityTable');
+      const mediaPlanTable = document.getElementById('mediaPlanTable');
+      const assignFlightsTable = document.getElementById('assignFlightsTable');
+      
+      let assignDealCurrentStep = 1;
+      let selectedFlightsForAssign = [];
+      let selectedDealId = null;
+      let assignDealFromEditMode = false;
+      const assignDealLinkEditMode = document.getElementById('assignDealLinkEditMode');
+      
+      function updateAssignDealLinkState() {
+        const checkedCount = ungroupedTableBody.querySelectorAll('input[type="checkbox"]:checked').length;
+        if (checkedCount > 0) {
+          assignDealLink.classList.remove('disabled');
+        } else {
+          assignDealLink.classList.add('disabled');
+        }
+      }
+      
+      function openAssignDealWizard() {
+        // Check if any flights are selected
+        const checkedRows = ungroupedTableBody.querySelectorAll('tr:has(input[type="checkbox"]:checked)');
+        if (checkedRows.length === 0) {
+          return; // Link is disabled, do nothing
+        }
+        
+        // Mark as NOT from edit mode
+        assignDealFromEditMode = false;
+        
+        // Store selected flight IDs
+        selectedFlightsForAssign = Array.from(checkedRows).map(row => row.dataset.flightId);
+        
+        // Hide everything from Deals Grouping view
+        normalModeHeader.style.display = 'none';
+        editModeHeader.style.display = 'none';
+        normalModeContent.style.display = 'none';
+        editModeContent.style.display = 'none';
+        normalFooter.style.display = 'none';
+        dealsSelectionBar.classList.remove('active');
+        
+        // Show wizard Step 1
+        assignDealCurrentStep = 1;
+        assignDealHeader.style.display = 'flex';
+        assignDealStep1.style.display = 'block';
+        assignDealStep2.style.display = 'none';
+        assignDealStep3.style.display = 'none';
+        assignDealFooter.style.display = 'flex';
+        assignDealInfoBar.classList.remove('active');
+        
+        // Reset selections
+        resetWizardSelections();
+      }
+      
+      function openAssignDealWizardFromEditMode() {
+        // Mark as from edit mode
+        assignDealFromEditMode = true;
+        
+        // Get all flights in the current group being edited
+        const groupFlights = editModeGroupedTableBody.querySelectorAll('tr:not(.group-row)');
+        selectedFlightsForAssign = Array.from(groupFlights).map(row => row.dataset.flightId);
+        
+        // Hide edit mode view
+        editModeHeader.style.display = 'none';
+        editModeContent.style.display = 'none';
+        normalFooter.style.display = 'none';
+        
+        // Show wizard Step 1
+        assignDealCurrentStep = 1;
+        assignDealHeader.style.display = 'flex';
+        assignDealStep1.style.display = 'block';
+        assignDealStep2.style.display = 'none';
+        assignDealStep3.style.display = 'none';
+        assignDealFooter.style.display = 'flex';
+        assignDealInfoBar.classList.remove('active');
+        
+        // Reset selections
+        resetWizardSelections();
+      }
+      
+      function resetWizardSelections() {
+        // Reset opportunity table selection
+        opportunityTable.querySelectorAll('tr.selected').forEach(row => row.classList.remove('selected'));
+        // Reset media plan table selection
+        mediaPlanTable.querySelectorAll('tr.selected').forEach(row => row.classList.remove('selected'));
+        // Reset flight checkboxes
+        assignFlightsTable.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        selectedDealId = null;
+      }
+      
+      function closeAssignDealWizard() {
+        assignDealHeader.style.display = 'none';
+        assignDealStep1.style.display = 'none';
+        assignDealStep2.style.display = 'none';
+        assignDealStep3.style.display = 'none';
+        assignDealFooter.style.display = 'none';
+        assignDealInfoBar.classList.remove('active');
+        
+        if (assignDealFromEditMode) {
+          // Return to edit mode
+          editModeHeader.style.display = 'flex';
+          editModeContent.style.display = 'block';
+        } else {
+          // Return to normal mode
+          normalModeHeader.style.display = 'flex';
+          normalModeContent.style.display = 'block';
+          normalFooter.style.display = 'flex';
+        }
+        
+        assignDealCurrentStep = 1;
+        selectedFlightsForAssign = [];
+        selectedDealId = null;
+        assignDealFromEditMode = false;
+      }
+      
+      function goToNextStep() {
+        if (assignDealCurrentStep === 1) {
+          // Check if opportunity selected
+          const selected = opportunityTable.querySelector('tr.selected');
+          if (!selected) {
+            alert('Please select an opportunity to continue.');
+            return;
+          }
+          assignDealCurrentStep = 2;
+          assignDealStep1.style.display = 'none';
+          assignDealStep2.style.display = 'block';
+        } else if (assignDealCurrentStep === 2) {
+          // Check if media plan selected
+          const selected = mediaPlanTable.querySelector('tr.selected');
+          if (!selected) {
+            alert('Please select a media plan to continue.');
+            return;
+          }
+          assignDealCurrentStep = 3;
+          assignDealStep2.style.display = 'none';
+          assignDealStep3.style.display = 'block';
+        } else if (assignDealCurrentStep === 3) {
+          // Check if flight selected
+          const checked = assignFlightsTable.querySelector('input[type="checkbox"]:checked');
+          if (!checked || !selectedDealId) {
+            alert('Please select a flight to get the Deal ID from.');
+            return;
+          }
+          // Apply Deal ID to originally selected flights
+          applyDealIdToFlights();
+        }
+      }
+      
+      function goToPrevStep() {
+        if (assignDealCurrentStep === 1) {
+          closeAssignDealWizard();
+        } else if (assignDealCurrentStep === 2) {
+          assignDealCurrentStep = 1;
+          assignDealStep2.style.display = 'none';
+          assignDealStep1.style.display = 'block';
+        } else if (assignDealCurrentStep === 3) {
+          assignDealCurrentStep = 2;
+          assignDealStep3.style.display = 'none';
+          assignDealStep2.style.display = 'block';
+          assignDealInfoBar.classList.remove('active');
+        }
+      }
+      
+      function applyDealIdToFlights() {
+        // Hide info bar immediately
+        assignDealInfoBar.classList.remove('active');
+        
+        if (assignDealFromEditMode) {
+          // Apply Deal ID to the group row in edit mode
+          const editGroupRow = editModeGroupedTableBody.querySelector('.group-row');
+          if (editGroupRow) {
+            const groupDealIdCell = editGroupRow.cells[2];
+            if (groupDealIdCell) groupDealIdCell.textContent = selectedDealId;
+          }
+          
+          // Apply Deal ID to all flights in the group (in edit mode tables)
+          const editGroupedFlights = editModeGroupedTableBody.querySelectorAll('tr:not(.group-row)');
+          editGroupedFlights.forEach(row => {
+            const dealIdCell = row.cells[2];
+            if (dealIdCell) dealIdCell.textContent = selectedDealId;
+          });
+          
+          // Also apply to the actual grouped flights and group row in the main table
+          if (currentEditingGroupId) {
+            // Apply to group row
+            const mainGroupRow = groupedTableBody.querySelector(`tr[data-group-id="${currentEditingGroupId}"]`);
+            if (mainGroupRow) {
+              const mainGroupDealIdCell = mainGroupRow.cells[2];
+              if (mainGroupDealIdCell) mainGroupDealIdCell.textContent = selectedDealId;
+            }
+            
+            // Apply to child flights
+            const groupChildRows = groupedTableBody.querySelectorAll(`tr[data-parent-group="${currentEditingGroupId}"]`);
+            groupChildRows.forEach(row => {
+              const dealIdCell = row.cells[2];
+              if (dealIdCell) dealIdCell.textContent = selectedDealId;
+            });
+          }
+        } else {
+          // Normal mode - apply to selected ungrouped flights
+          selectedFlightsForAssign.forEach(flightId => {
+            const row = ungroupedTableBody.querySelector(`tr[data-flight-id="${flightId}"]`);
+            if (row) {
+              const dealIdCell = row.cells[2];
+              dealIdCell.textContent = selectedDealId;
+            }
+          });
+          
+          // Uncheck all checkboxes
+          ungroupedTableBody.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+          dealsSelectionBar.classList.remove('active');
+        }
+        
+        // Close wizard
+        closeAssignDealWizard();
+        
+        // Show success message (only in normal mode, not edit mode)
+        if (!assignDealFromEditMode) {
+          dealsSuccessMessage.querySelector('.deals-success-message__text').textContent = 'Deal ID was successfully assigned to selected flights';
+          dealsSuccessMessage.classList.add('active');
+          setTimeout(function() {
+            dealsSuccessMessage.classList.remove('active');
+            dealsSuccessMessage.querySelector('.deals-success-message__text').textContent = 'New Deal Group of flights was successfully created';
+          }, 15000);
+        }
+      }
+      
+      // Event listeners for wizard
+      if (assignDealLink) {
+        assignDealLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (this.classList.contains('disabled')) return;
+          openAssignDealWizard();
+        });
+      }
+      
+      const editModeLinkEl = document.getElementById('assignDealLinkEditMode');
+      if (editModeLinkEl) {
+        editModeLinkEl.addEventListener('click', function(e) {
+          e.preventDefault();
+          openAssignDealWizardFromEditMode();
+        });
+      }
+      
+      if (assignDealBackBtn) {
+        assignDealBackBtn.addEventListener('click', goToPrevStep);
+      }
+      
+      if (closePanelBtnAssign) {
+        closePanelBtnAssign.addEventListener('click', function() {
+          closeAssignDealWizard();
+          closeDealsPanel();
+        });
+      }
+      
+      if (assignDealCloseBtn) {
+        assignDealCloseBtn.addEventListener('click', closeAssignDealWizard);
+      }
+      
+      if (assignDealContinueBtn) {
+        assignDealContinueBtn.addEventListener('click', goToNextStep);
+      }
+      
+      // Row selection for opportunity table
+      opportunityTable.querySelectorAll('tbody tr').forEach(row => {
+        row.addEventListener('click', function() {
+          opportunityTable.querySelectorAll('tbody tr').forEach(r => r.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+      
+      // Row selection for media plan table
+      mediaPlanTable.querySelectorAll('tbody tr').forEach(row => {
+        row.addEventListener('click', function() {
+          mediaPlanTable.querySelectorAll('tbody tr').forEach(r => r.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+      
+      // Checkbox selection for flights table (single select)
+      assignFlightsTable.querySelectorAll('.assign-flight-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (this.checked) {
+            // Uncheck all other checkboxes
+            assignFlightsTable.querySelectorAll('.assign-flight-checkbox').forEach(cb => {
+              if (cb !== this) cb.checked = false;
+            });
+            // Store the Deal ID
+            const row = this.closest('tr');
+            selectedDealId = row.dataset.dealId;
+            assignDealInfoBar.classList.add('active');
+          } else {
+            selectedDealId = null;
+            assignDealInfoBar.classList.remove('active');
+          }
+        });
+      });
 
       // Initialize checkbox listeners
       attachCheckboxListeners();
