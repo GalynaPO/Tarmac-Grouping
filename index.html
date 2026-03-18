@@ -1639,10 +1639,10 @@
                   </span>
                 </td>
                 <td>--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">$0.00</td>
+                <td class="text-right">$12,450.00</td>
+                <td class="text-right">1,245,000</td>
+                <td class="text-right">$25,000.00</td>
+                <td class="text-right">2,500,000</td>
                 <td>Jan 01, 2025</td>
                 <td>March 31, 2026</td>
                 <td>Beeswax</td>
@@ -1665,10 +1665,10 @@
                   </span>
                 </td>
                 <td>--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">$0.00</td>
+                <td class="text-right">$8,320.50</td>
+                <td class="text-right">832,050</td>
+                <td class="text-right">$18,500.00</td>
+                <td class="text-right">1,850,000</td>
                 <td>April 1, 2026</td>
                 <td>June 30, 2026</td>
                 <td>The Trade</td>
@@ -1691,10 +1691,10 @@
                   </span>
                 </td>
                 <td>--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">$0.00</td>
+                <td class="text-right">$5,875.25</td>
+                <td class="text-right">587,525</td>
+                <td class="text-right">$15,000.00</td>
+                <td class="text-right">1,500,000</td>
                 <td>July 1, 2026</td>
                 <td>Sep 30, 2026</td>
                 <td>Adobe</td>
@@ -1717,10 +1717,10 @@
                   </span>
                 </td>
                 <td>--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">--</td>
-                <td class="text-right">$0.00</td>
-                <td class="text-right">$0.00</td>
+                <td class="text-right">$3,200.00</td>
+                <td class="text-right">320,000</td>
+                <td class="text-right">$22,000.00</td>
+                <td class="text-right">2,200,000</td>
                 <td>Oct 1, 2026</td>
                 <td>Dec 31, 2026</td>
                 <td>DV360</td>
@@ -1802,7 +1802,18 @@
         <!-- Group Selection Bar -->
         <div class="deals-selection-bar" id="groupSelectionBar">
           <span class="deals-selection-bar__count">Selected: <span id="groupSelectedCount">0</span></span>
-          <button class="deals-selection-bar__btn" id="editDealGroupBtn">Edit Deal group</button>
+          <div class="deals-selection-bar__btn-wrapper">
+            <div class="deals-selection-bar__tooltip" id="groupEditTooltip" style="display: none;">
+              You can edit only one group at a time. Please select a single group.
+            </div>
+            <button class="deals-selection-bar__btn" id="editDealGroupBtn">
+              Edit Deal group
+              <svg class="btn-icon" viewBox="0 0 16 16" fill="none" style="display: none;">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 7V11M8 5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
         
         <table class="deals-table" id="groupedTable">
@@ -2285,10 +2296,24 @@
       function updateGroupSelectionBar() {
         const groupCheckboxes = groupedTableBody.querySelectorAll('.group-row input[type="checkbox"]:checked');
         const checkedCount = groupCheckboxes.length;
+        const groupEditTooltip = document.getElementById('groupEditTooltip');
+        const editBtn = document.getElementById('editDealGroupBtn');
+        const btnIcon = editBtn ? editBtn.querySelector('.btn-icon') : null;
         
         if (checkedCount > 0) {
           groupSelectionBar.classList.add('active');
           groupSelectedCount.textContent = checkedCount;
+          
+          // Only allow editing one group at a time
+          if (checkedCount > 1) {
+            editBtn.disabled = true;
+            if (btnIcon) btnIcon.style.display = '';
+            if (groupEditTooltip) groupEditTooltip.style.display = '';
+          } else {
+            editBtn.disabled = false;
+            if (btnIcon) btnIcon.style.display = 'none';
+            if (groupEditTooltip) groupEditTooltip.style.display = 'none';
+          }
         } else {
           groupSelectionBar.classList.remove('active');
         }
@@ -2424,9 +2449,11 @@
         groupCounter++;
         const groupId = 'group-' + groupCounter;
 
-        // Calculate date range from selected flights
+        // Calculate date range from selected flights and find existing Deal ID
         let minStartDate = null;
         let maxEndDate = null;
+        let existingDealId = '--';
+        
         checkedRows.forEach(row => {
           const startDateText = row.cells[3].textContent;
           const endDateText = row.cells[4].textContent;
@@ -2435,6 +2462,12 @@
           
           if (!minStartDate || startDate < minStartDate) minStartDate = startDate;
           if (!maxEndDate || endDate > maxEndDate) maxEndDate = endDate;
+          
+          // Check for existing Deal ID
+          const dealIdText = row.cells[2].textContent.trim();
+          if (dealIdText && dealIdText !== '--') {
+            existingDealId = dealIdText;
+          }
         });
 
         const formatDate = (date) => {
@@ -2458,7 +2491,7 @@
             </div>
           </td>
           <td><span class="group-name">Group ${groupCounter}</span></td>
-          <td>--</td>
+          <td>${existingDealId}</td>
           <td>${formatDate(minStartDate)}</td>
           <td>${formatDate(maxEndDate)}</td>
         `;
@@ -2466,10 +2499,17 @@
         groupedTableBody.appendChild(groupRow);
 
         // Move checked rows to grouped section as child rows
+        // If there's an existing Deal ID, apply it to all flights in the group
         checkedRows.forEach(row => {
           row.classList.add('group-child');
           row.dataset.parentGroup = groupId;
           row.querySelector('input[type="checkbox"]').checked = false;
+          
+          // Apply Deal ID to all flights in the group if one exists
+          if (existingDealId !== '--') {
+            row.cells[2].textContent = existingDealId;
+          }
+          
           groupedTableBody.appendChild(row);
         });
 
